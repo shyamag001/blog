@@ -101,8 +101,8 @@ gulp.task("copyMarkdown", () => {
     ).pipe(
       replace(/\]\((.+?).md\)/g, (match, p1, offset, string) => {
         const pathes = p1.split('/')
-        const area = pathes[pathes.length -2]
-        const title = pathes[pathes.length -1].replace(".md","")
+        const area = pathes[pathes.length - 2]
+        const title = pathes[pathes.length - 1].replace(".md", "")
         return `](${blogRoot}/${area}/${title}/)`;
       })
     )
