@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Japan Azure Identity Support Blog</title>
+  
+  
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="https://jpazureid.github.io/"/>
+  <updated>2019-04-04T06:39:06.526Z</updated>
+  <id>https://jpazureid.github.io/</id>
+  
+  <author>
+    <name>Azure Identity Support Japan</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>入れ子 (ネスト) グループへの権限付与について</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/nesting-group/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/nesting-group/</id>
+    <published>2019-02-05T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.526Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、 Azure Identity の平形です。&lt;br&gt;今回は Azure AD における入れ子 (ネスト) グループの対応状況についてお伝え致します。&lt;/p&gt;
+&lt;h3 id=&quot;入れ子のグループとは&quot;&gt;&lt;a href=&quot;#入れ子のグループとは&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD サインイン ログ取得方法まとめ</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/how-to-get-sign-in-logs/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/how-to-get-sign-in-logs/</id>
+    <published>2019-02-03T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.444Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは。Azure Identity チームの三浦です。&lt;/p&gt;
+&lt;p&gt;Azure AD のサインイン ログは Azure ポータルで確認するほかに次のような方法で確認することができます。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ポータルから CSV
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+      <category term="Sgin-in log" scheme="https://jpazureid.github.io/tags/Sgin-in-log/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PowerShell にて全ユーザーの最終サインイン日時を一括で取得する方法</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/last-signin-reports/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/last-signin-reports/</id>
+    <published>2018-12-11T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.489Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure &amp;amp; Identity サポート チームの小野です。今回は、PowerShell で Azure AD 上の全ユーザー（ゲストユーザーも含む）の最終サインイン日時を一括で取得する方法をご紹介します。&lt;/p&gt;
+&lt;p&gt;Azure AD
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ステージング サーバーのすゝめ</title>
+    <link href="https://jpazureid.github.io/azure-active-directory-connect/introduction-staging-server/"/>
+    <id>https://jpazureid.github.io/azure-active-directory-connect/introduction-staging-server/</id>
+    <published>2018-11-26T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.628Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは。Azure Identity チームの金森です。&lt;br&gt;今回は Azure AD Connect (AADC) サーバーの運用にあたって、さまざまなメリットが享受できる [Staging サーバー] のご紹介です！&lt;/p&gt;
+&lt;p&gt;AADC
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AAD Connect" scheme="https://jpazureid.github.io/tags/AAD-Connect/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>サブスクリプション作成時のエラー「アカウントが Azure サブスクリプションに関連付けられないディレクトリに属しています。別のアカウントでサインインしてください」</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/create-subscription-error/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/create-subscription-error/</id>
+    <published>2018-10-31T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.399Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure &amp;amp; Identity サポート チームの小野です。&lt;/p&gt;
+&lt;p&gt;今回は、Azure におけるサブスクリプション作成時に表示される「アカウントが Azure
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>証明書認証のトラブルシューティング</title>
+    <link href="https://jpazureid.github.io/active-directory-federation-service/adfs-cba-ts/"/>
+    <id>https://jpazureid.github.io/active-directory-federation-service/adfs-cba-ts/</id>
+    <published>2018-10-31T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.118Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure &amp;amp; Identitiy サポートチームの竹村です。&lt;br&gt;今回は、多くのお客様からお問合せをいただく AD FS のクライアント証明書認証の問題について、既知の事例や対応方法をご紹介します。&lt;/p&gt;
+&lt;h2 id=&quot;最初に行うこと&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AD FS" scheme="https://jpazureid.github.io/tags/AD-FS/"/>
+    
+      <category term="トラブルシューティング" scheme="https://jpazureid.github.io/tags/%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0/"/>
+    
+      <category term="CBA" scheme="https://jpazureid.github.io/tags/CBA/"/>
+    
+      <category term="証明書認証" scheme="https://jpazureid.github.io/tags/%E8%A8%BC%E6%98%8E%E6%9B%B8%E8%AA%8D%E8%A8%BC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>多要素認証 (MFA) のリセット手順</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/mfa-reset/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/mfa-reset/</id>
+    <published>2018-10-14T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.502Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure &amp;amp; Identity サポート チームの小野です。&lt;/p&gt;
+&lt;p&gt;今回は、Azure AD における多要素認証 (Multi-Factor Authentication = MFA)
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD Connect - ディレクトリ同期の応用 – オブジェクト間の属性値の移動</title>
+    <link href="https://jpazureid.github.io/azure-active-directory-connect/move-attribute-values-between-objects/"/>
+    <id>https://jpazureid.github.io/azure-active-directory-connect/move-attribute-values-between-objects/</id>
+    <published>2018-10-10T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.633Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは。Azure Identity チームの金森です。&lt;br&gt;今回は Azure AD Connect (AADC) ツールを利用している環境で “オンプレミス AD ユーザー B にセットしたメール アドレス値が同期先 AAD ユーザーに反映されない”
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD Connect - 2018/11/7 以降 AADC 1.0.8641.0 以前では Password Writeback が利用できない</title>
+    <link href="https://jpazureid.github.io/azure-active-directory-connect/cantphsback-aadc/"/>
+    <id>https://jpazureid.github.io/azure-active-directory-connect/cantphsback-aadc/</id>
+    <published>2018-10-08T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.598Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは。Azure Identity チームの金森です。&lt;br&gt;今回は Azure AD Connect (AADC) をご利用いただいている皆様に急ぎお伝えしたい情報がございます。  &lt;/p&gt;
+&lt;p&gt;先に結論ですが、表題の通り &lt;strong&gt;AADC
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>条件付きアクセスの基本的な考え方</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/conditional-access-basuc/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/conditional-access-basuc/</id>
+    <published>2018-09-26T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.394Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure &amp;amp; Identity サポート チームの栗井です。&lt;/p&gt;
+&lt;p&gt;この記事では条件付きアクセスポリシー設定の基本的な考え方について解説します。&lt;/p&gt;
+&lt;h2 id=&quot;条件付きアクセスの基本的な考え方は、アクセスを制限すること&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD の ディレクトリロールが割り当てられたメンバーの一覧を取得したい</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/output-directory-roll-members/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/output-directory-roll-members/</id>
+    <published>2018-09-12T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.532Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは！ Azure &amp;amp; Identity サポート チームの三浦 大です。&lt;/p&gt;
+&lt;p&gt;今回は Azure AD のディレクトリロールが割り当てられているユーザーの一覧を CSV で出力する PowerShell スクリプトをご紹介します。Azure AD
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD Directory Rolls" scheme="https://jpazureid.github.io/tags/Azure-AD-Directory-Rolls/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>テナント制限</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/tenant-restriction/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/tenant-restriction/</id>
+    <published>2018-09-12T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.569Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは！ Azure &amp;amp; Identity サポート チームの三浦 大です。&lt;/p&gt;
+&lt;p&gt;今回はテナント制限の機能に関して、よくあるお問い合わせと、その回答をまとめさせていただきました。&lt;/p&gt;
+&lt;h2 id=&quot;テナント制限とは&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+      <category term="Tenant Restrictions" scheme="https://jpazureid.github.io/tags/Tenant-Restrictions/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure Active Directory への接続で使用する IP アドレス範囲の変更</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/changed_aad_ip_range/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/changed_aad_ip_range/</id>
+    <published>2018-09-04T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.368Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;日々ブログをご愛読してくれている皆様、Azure Identity チームの宮林です。&lt;/p&gt;
+&lt;p&gt;先日、新着情報にて広報された、2018 年 9 月 10 日までに変更が行われる Azure Active Directory の IP
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure MFA の多要素認証設定の統合</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/mfasetupinteg/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/mfasetupinteg/</id>
+    <published>2018-09-04T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.505Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは。Azure Identity チームの金森です。&lt;/p&gt;
+&lt;p&gt;今回は先日プレビューとなりました [SSPR と Azure MFA の多要素認証設定の統合] をご紹介したいと思います。&lt;br&gt;※
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+      <category term="MFA" scheme="https://jpazureid.github.io/tags/MFA/"/>
+    
+      <category term="SSPR" scheme="https://jpazureid.github.io/tags/SSPR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD におけるロール管理の新しい方法</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/roles-and-administrators/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/roles-and-administrators/</id>
+    <published>2018-08-22T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.558Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure &amp;amp; Identity サポート チームの栗井です。&lt;/p&gt;
+&lt;p&gt;本記事は、2018年7月末に公開された A new way to manage roles and administrators in Azure AD
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「ユーザーはアプリケーションを登録できる」の設定について</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/users-can-register-applications/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/users-can-register-applications/</id>
+    <published>2018-08-16T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.574Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure Identity チームの宮林です。&lt;br&gt;今回は Azure  Active Directory における、アプリケーションの登録の制限について紹介します。&lt;/p&gt;
+&lt;p&gt;Azure Active Directory
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD Connect アップグレード手順</title>
+    <link href="https://jpazureid.github.io/azure-active-directory-connect/how-to-upgrade/"/>
+    <id>https://jpazureid.github.io/azure-active-directory-connect/how-to-upgrade/</id>
+    <published>2018-08-09T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.622Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは。 Azure Identity サポートの谷です。&lt;/p&gt;
+&lt;p&gt;Azure AD Connect (AADC) のアップグレード手順をご紹介いたします。AADC の更新バージョンのリリース頻度は高く、この 3 カ月でも 3
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AAD Connect" scheme="https://jpazureid.github.io/tags/AAD-Connect/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Azure AD Connect サーバーの CPU 使用率が頻繁に 100% になる問題について</title>
+    <link href="https://jpazureid.github.io/azure-active-directory-connect/problem-cpu-usage-100-aadc-server/"/>
+    <id>https://jpazureid.github.io/azure-active-directory-connect/problem-cpu-usage-100-aadc-server/</id>
+    <published>2018-08-09T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.641Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure ID チームの松枝です。&lt;br&gt;本記事では、Azure AD Connect サーバーの CPU 使用率が頻繁に 100% になる問題について、次のとおりご案内いたします。&lt;br&gt;先日より同様の事象について、多くのお問い合わせをいただいております
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AAD Connect" scheme="https://jpazureid.github.io/tags/AAD-Connect/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RBAC のスコープについて</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/about-rbac/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/about-rbac/</id>
+    <published>2018-08-08T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.246Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは、Azure &amp;amp; Identity サポート チームの坂井です。&lt;/p&gt;
+&lt;p&gt;今回は ロールベースのアクセス制御 (RBAC) について紹介します。Azure の各種リソースに対するアクセス制御 (IAM)
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+      <category term="RBAC" scheme="https://jpazureid.github.io/tags/RBAC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Microsoft Graph API を利用して Azure AD のサインイン アクティビティ レポートを CSV ファイルで取得する PowerShell スクリプト</title>
+    <link href="https://jpazureid.github.io/azure-active-directory/microsoft-graph-api-signin-activity-reports/"/>
+    <id>https://jpazureid.github.io/azure-active-directory/microsoft-graph-api-signin-activity-reports/</id>
+    <published>2018-08-08T15:00:00.000Z</published>
+    <updated>2019-04-04T06:39:06.511Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;こんにちは Azure &amp;amp; Identity サポート チームの 姚 ヨウです。&lt;/p&gt;
+&lt;p&gt;前回、Azure AD のサインイン アクティビティ レポートと監査アクティビティ レポートを Azure AD Graph API を経緯し、PowerShell で
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Azure AD" scheme="https://jpazureid.github.io/tags/Azure-AD/"/>
+    
+      <category term="graph api" scheme="https://jpazureid.github.io/tags/graph-api/"/>
+    
+      <category term="signin log" scheme="https://jpazureid.github.io/tags/signin-log/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <!-- this tag should remove when publish production  -->
+  <meta name="”robots”" content="”noindex”">
+  
+
+  
+  <title>Japan Azure Identity Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="日本マイクロソフトの Azure Active Directory と AD FS に関するサポート情報のブログです。">
+<meta name="keywords" content="Azure,Azure AD,Identity,AD FS">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Japan Azure Identity Support Blog">
+<meta property="og:url" content="https://jpazureid.github.io/page/2/index.html">
+<meta property="og:site_name" content="Japan Azure Identity Support Blog">
+<meta property="og:description" content="日本マイクロソフトの Azure Active Directory と AD FS に関するサポート情報のブログです。">
+<meta property="og:locale" content="ja">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Japan Azure Identity Support Blog">
+<meta name="twitter:description" content="日本マイクロソフトの Azure Active Directory と AD FS に関するサポート情報のブログです。">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Azure Identity Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Azure Identity Support Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-azure-active-directory/output-directory-roll-members" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/output-directory-roll-members/" class="article-date">
+  <time datetime="2018-09-12T15:00:00.000Z" itemprop="datePublished">2018-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/output-directory-roll-members/">Azure AD の ディレクトリロールが割り当てられたメンバーの一覧を取得したい</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは！ Azure &amp; Identity サポート チームの三浦 大です。</p>
+<p>今回は Azure AD のディレクトリロールが割り当てられているユーザーの一覧を CSV で出力する PowerShell スクリプトをご紹介します。Azure AD はセキュリティの観点から、ディレクトリロールにて設定できるロールが細かく分類されております。各ロールのメンバーの一覧は、先日の <a href="/blog/./roles-and-administrators/">ブログ</a> で紹介しましたように、 Azure ポータルから参照することができます。</p>
+<p>しかし、この一覧をファイルとして出力したいというご要望もあるかと思います。以下のとおり、ディレクトリロールの一覧を出力する PowerShell スクリプトを作成いたしましたので、ぜひご利用ください！</p>
+<blockquote>
+<p>実行に際しては、事前に Install-Module -Name MSOnline コマンドを実行し、 Azure AD PowerShell モジュールのインストールをお願いいたします。</p>
+</blockquote>
+<p>Azure AD PowerShell のインストールなどについては、以下の公開情報をご参照くださいませ。</p>
+<p><a href="/blog/./powershell-module/">Azure Active Directory の PowerShell モジュール</a></p>
+<h2 id="PowerShell-スクリプト"><a href="#PowerShell-スクリプト" class="headerlink" title="PowerShell スクリプト"></a>PowerShell スクリプト</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Import-Module MSOnline</span><br><span class="line">Connect-MsolService</span><br><span class="line"></span><br><span class="line">#任意の csv が出力されるディレクトリを設定してください。</span><br><span class="line"></span><br><span class="line">$outfile = &quot;C:\output.csv&quot;</span><br><span class="line">$dataList</span><br><span class="line">$data = New-Object PSObject | Select-Object DirectoryRole, User</span><br><span class="line">$role = Get-MsolRole</span><br><span class="line">$dataList = @()</span><br><span class="line"></span><br><span class="line">foreach ($test in $role) &#123;</span><br><span class="line">	$member = Get-MsolRoleMember -RoleObjectId $test.objectid</span><br><span class="line">	If ($null -eq $member) &#123;</span><br><span class="line">		$role = $test.name</span><br><span class="line">		Write-Output &quot;$role,&quot;</span><br><span class="line">		$data = New-Object PSObject | Select-Object DirectoryRole, User</span><br><span class="line">		$data.DirectoryRole = $role</span><br><span class="line">		$data.User = $null</span><br><span class="line">		$dataList += $data</span><br><span class="line">	&#125; Else &#123;</span><br><span class="line">		foreach ($m in $member) &#123;</span><br><span class="line">			$role = $test.name</span><br><span class="line">			$user = $m.EmailAddress</span><br><span class="line">			Write-Output &quot;$role,$user&quot;</span><br><span class="line">			$data = New-Object PSObject | Select-Object DirectoryRole, User</span><br><span class="line">			$data.DirectoryRole = $role</span><br><span class="line">			$data.User = $user</span><br><span class="line">			$dataList += $data</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$DataList | Export-Csv $outfile -Encoding Default</span><br></pre></td></tr></table></figure>
+<h2 id="出力結果の例"><a href="#出力結果の例" class="headerlink" title="出力結果の例"></a>出力結果の例</h2><p>スクリプトを実行すると資格情報が求められますので、出力対象の Azure AD テナントの全体管理者の資格情報を入力します。その後自動的に csv ファイルにロールの一覧が出力されます。以下は出力のサンプルです。</p>
+<img src="/blog/azure-active-directory/output-directory-roll-members/output-directory-roll-member011.png"> 
+<p>本ブログにて、管理者の方のご負担、少しでも軽減されれば幸甚です。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/output-directory-roll-members/" data-id="cju29s3z50018o0ytnwiix9rq" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD-Directory-Rolls/">Azure AD Directory Rolls</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/tenant-restriction" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/tenant-restriction/" class="article-date">
+  <time datetime="2018-09-12T15:00:00.000Z" itemprop="datePublished">2018-09-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/tenant-restriction/">テナント制限</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは！ Azure &amp; Identity サポート チームの三浦 大です。</p>
+<p>今回はテナント制限の機能に関して、よくあるお問い合わせと、その回答をまとめさせていただきました。</p>
+<h2 id="テナント制限とは"><a href="#テナント制限とは" class="headerlink" title="テナント制限とは"></a>テナント制限とは</h2><p>まず、テナント制限とは、 Azure AD に対する認証の通信をプロキシ経由させ、そのプロキシから送信されるデータに、アクセスを許可する Azure AD テナントの情報を付与しておくことで、それ以外の Azure AD テナントへのアクセスをブロックする機能を指しています。</p>
+<p>詳細については、以下の公開情報をご参照ください。</p>
+<p>自社テナント以外へのアクセス制御 – “テナントの制限” 機能 (Tenant Restrictions)<br><a href="https://blogs.technet.microsoft.com/office365-tech-japan/2017/02/06/tenant-restrictions/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/office365-tech-japan/2017/02/06/tenant-restrictions/</a></p>
+<p>テナント制限が機能しており、アクセスを許可しないテナントの  Office 365 や Azure へのサインイン時に 「ここからアクセスすることはできません」 のエラーメッセージが表示されます。</p>
+<img src="/blog/azure-active-directory/tenant-restriction/tenant-restrictions01.png">
+<p>以下にて、テナント制限に関連する、よくあるお問い合わせをまとめました。ぜひご参照ください！</p>
+<h2 id="よくあるお問い合わせ"><a href="#よくあるお問い合わせ" class="headerlink" title="よくあるお問い合わせ"></a>よくあるお問い合わせ</h2><p><font color="DeepSkyBlue">Q</font> : MS アカウントを利用すると、制限の画面が表示されますが、回避策はありませんか？</p>
+<p><font color="red">A</font> : MS アカウントを許可する場合には、以下をテナント制限の許可するリストに追加します。</p>
+<p>(“Restrict-Access-To-Tenants” ヘッダーに含まれるようにします)</p>
+<p>microsoftservices.onmicrosoft.com<br>MSARealms.onmicrosoft.com</p>
+<p><font color="DeepSkyBlue">Q</font> : 制限されるのは Office 365 だけですか？</p>
+<p><font color="red">A</font>  : いいえ。以下の認証エンドポイントを使用する、すべてのサービスが制限されます。</p>
+<p>login.microsoftonline.com<br>login.windows.net<br>login.microsoft.com</p>
+<p>例えば Azure ポータル、EA ポータルにアクセスする際も制限されます。また、ゲストユーザーの場合、招待されたテナントではなく、管理元のテナントで認証が行われるため、ゲストユーザーの招待元テナントも、テナント制限で許可する必要があります。</p>
+<p><font color="DeepSkyBlue">Q</font> : (クライアントですが)、テナント制限によってアクセスできないテナントにアクセスできるようにしてほしい。</p>
+<p><font color="red">A</font> : 接続元のクライアントが利用するプロキシサーバーの設定変更が必要です。プロキシ サーバーを管理している IT 部門へ申請をあげるなどで、テナント制限の許可するリストに該当のテナントを追加してもらってください。 </p>
+<p><font color="DeepSkyBlue">Q</font> : Azure AD 側での設定変更は必要ですか？</p>
+<p><font color="red">A</font> : いいえ。プロキシの設定のみで、テナント制限が機能します。</p>
+<p><font color="DeepSkyBlue">Q</font> : “Restrict-Access-To-Tenants” に、ワイルドカードは利用できますか？</p>
+<p><font color="red">A</font> : いいえ。テナント名かテナント ID を不足なく、入力する必要がございます。</p>
+<p><font color="DeepSkyBlue">Q</font> : テナント制限で許可をすることができるテナント数に上限はありますか？</p>
+<p><font color="red">A</font> : テナント制限にて、許可をするテナント数自体には上限は設けられていません。しかし、ヘッダーの長さの上限 (MaxFieldLength) と、リクエストとヘッダーを含めた合計のサイズの上限 (MaxRequestBytes) があるため、多数のディレクトリを追加する場合、この上限を超えないように注意が必要です。</p>
+<p>※ テナント名の平均を 30 文字 (30 バイト) とすると、ヘッダーにはテナント名を約 2,000 個追加できます。</p>
+<p>MaxFieldLength の最大値: 65534 バイト (6K バイト)<br>MaxRequestBytes 最大値: 16777216バイト (16M バイト)</p>
+<p>上記内容が、皆様のご参考になれば幸甚です。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/tenant-restriction/" data-id="cju29s3z8001fo0ytgjqj4c38" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Tenant-Restrictions/">Tenant Restrictions</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/changed_aad_ip_range" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/changed_aad_ip_range/" class="article-date">
+  <time datetime="2018-09-04T15:00:00.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/changed_aad_ip_range/">Azure Active Directory への接続で使用する IP アドレス範囲の変更</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>日々ブログをご愛読してくれている皆様、Azure Identity チームの宮林です。</p>
+<p>先日、新着情報にて広報された、2018 年 9 月 10 日までに変更が行われる Azure Active Directory の IP アドレス範囲についてお知らせいたします。</p>
+<p>IP アドレス範囲の変更とありますが、去年から追加となった範囲内への変更となりますので、すでにご対応済みの場合は影響がございません。</p>
+<p>以下のページで告知している Azure Active Directory の新着情報の抜粋と、Q＆A 形式で IP アドレス範囲の変更に伴う影響について補足します。</p>
+<ul>
+<li><p>Azure Active Directory の新着情報</p>
+<p><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/fundamentals/whats-new" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/fundamentals/whats-new</a></p>
+</li>
+</ul>
+<blockquote>
+<p>(以下抜粋)</p>
+<p>2018 年 7 月</p>
+<p>Azure Active Directory の IP アドレス範囲の変更</p>
+<p>タイプ: 変更の計画<br>サービス カテゴリ: その他<br>製品の機能: プラットフォーム</p>
+<p>Microsoft では、Azure AD に対してより大規模な IP 範囲の導入を進めています。<br>つまり、ファイアウォール、ルーター、またはネットワーク セキュリティ グループの Azure AD IP アドレス範囲を構成している場合はそれらを更新する必要があります。<br>Microsoft では、Azure AD で新しいエンドポイントが追加されたときにファイアウォール、ルーター、またはネットワーク セキュリティ グループの IP アドレス範囲の構成を再び変更する必要がないように、この更新を行っています。</p>
+<p>ネットワーク トラフィックは、今後 2 か月にわたってこれらの新しい範囲に移行されます。 中断のないサービスを継続するには、2018 年 9 月 10 日までに、次に示す更新された値を IP アドレスに追加する必要があります。</p>
+<p>20.190.128.0/18<br>40.126.0.0/18<br>すべてのネットワーク トラフィックが新しい範囲に移行されるまでは古い IP アドレス範囲を削除しないことを強くお勧めします。 移行に関する最新情報や古い範囲を削除できるタイミングについては、「Office 365 URL および IP アドレス範囲」を参照してください。</p>
+<p>(抜粋ここまで)</p>
+</blockquote>
+<hr>
+<ul>
+<li>Q : Azure 上に構築している仮想マシンの IP アドレスもかわりますか？</li>
+<li>A : いいえ、Azure 上に構築している仮想マシンの IP アドレスは、この案内の対象ではありません。<br>Azure Active Directory に対しての通信に必要な宛先 IP アドレス範囲の変更となります。</li>
+</ul>
+<hr>
+<ul>
+<li>Q : [去年から追加となった範囲内への変更となります] とあるが、すでに案内されている情報はどのページにありますか？</li>
+<li>A : 「Office 365 URL および IP アドレス範囲」のページから JSON 形式のファイルを参照してご確認ください。<br>“serviceAreaDisplayName”: “Microsoft 365 Common and Office Online” という名前の値を参照ください。</li>
+</ul>
+<p>(過去には XML 形式でお伝えしていた情報となりますが、2018 年 10 月 2 日より JSON 形式に変更となりました。)</p>
+<hr>
+<ul>
+<li><p>Q : 「Office 365 URL および IP アドレス範囲」を参考にIPアドレスではなくホスト名を使用してイントラネットからインターネットへの接続をネットワーク機器にて制限していたのですが影響はありますか？</p>
+</li>
+<li><p>A : いいえ、ホスト名を使用して運用されているお客様には影響がございません。</p>
+</li>
+</ul>
+<hr>
+<p>ご不明な点がございましたら弊社サポートまでお気軽にお問い合わせください。</p>
+<p>上記内容が少しでも皆様の参考となりますと幸いです。</p>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/changed_aad_ip_range/" data-id="cju29s3yo000ko0ytn71syrgy" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/mfasetupinteg" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/mfasetupinteg/" class="article-date">
+  <time datetime="2018-09-04T15:00:00.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/mfasetupinteg/">Azure MFA の多要素認証設定の統合</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。Azure Identity チームの金森です。</p>
+<p>今回は先日プレビューとなりました [SSPR と Azure MFA の多要素認証設定の統合] をご紹介したいと思います。<br>※ 個人的に待ちに待っていた改善となります！</p>
+<p>Converged registration for self-service password reset and Azure Multi-Factor Authentication (Public preview)<br><a href="https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-registration-mfa-sspr-converged" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-registration-mfa-sspr-converged</a><br>2018/8/1 に公開された docs 技術情報です。</p>
+<p>Combined registration for Azure AD MFA and Self Service Password Reset plus two other cool updates now in public preview!<br><a href="https://cloudblogs.microsoft.com/enterprisemobility/2018/08/06/mfa-and-sspr-updates-now-in-public-preview/" target="_blank" rel="noopener">https://cloudblogs.microsoft.com/enterprisemobility/2018/08/06/mfa-and-sspr-updates-now-in-public-preview/</a><br>2018/8/6 に公開された Alex の Blog 情報です。こちらの方が私の気持ちを汲んだ内容になっています。</p>
+<p>これまで SSPR (Self Service Password Reset) 機能と、Azure MFA (Multi-Factor Authentication) 機能を有効にすると、ユーザーが最初に Azure AD (AAD) へサインインする際にそれぞれの機能毎に追加の認証方法のセットアップが求められていました。<br>つまり、AAD ユーザーとしての追加の認証方法という意味は同じなのに、2回のセットアップ画面での設定を終えないとサービスのご利用を開始できなかったのです。</p>
+<p>それぞれのセットアップ画面が分かれていることで操作している対象が分かりやすい、という感想をお持ちの方もいらっしゃるかもしれませんが、これから AAD ユーザーとして利用を開始する方が最初のサインイン時に <strong>[あれ？さっき追加の認証方法をセットアップしたのに、似たような画面でもう1回セットアップを求められてる？]</strong> と煩わしく思われたり、Azure MFA を導入済みの環境に SSPR を追加で導入した場合、 <strong>[あれ？以前サービス利用を開始した時に追加の認証方法を設定したはずなのにまた設定するよう求められている？以前セットアップした時とちょっと画面が違うような気もするけど…]</strong> と混乱されるようなことがあったかもしれません。</p>
+<p>今回のプレビュー機能では、 [SSPR 用の多要素認証方法のセットアップ] と [Azure MFA 用の多要素認証方法のセットアップ] が [AAD ユーザーとしての多要素認証方法のセットアップ] として統合され、1回の設定で SSPR と Azure MFA それぞれで利用される方法が設定できることになります。</p>
+<p>それでは早速以下の順序で今回の変更点を見ていきましょう！</p>
+<ol>
+<li>SSPR と Azure MFA の有効化</li>
+<li>今までの SSPR と Azure MFA の認証方法セットアップ画面</li>
+<li>プレビュー機能の有効化の方法</li>
+<li>プレビュー機能を有効にした後の統合された MFA 方法セットアップ画面</li>
+</ol>
+<h3 id="1-SSPR-と-Azure-MFA-の有効化"><a href="#1-SSPR-と-Azure-MFA-の有効化" class="headerlink" title="1. SSPR と Azure MFA の有効化"></a>1. SSPR と Azure MFA の有効化</h3><p>まずは SSPR と Azure MFA を以下のように有効化します。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg1-1.jpg">
+<p>SSPR の有効化は、Azure AD ポータルより [パスワード リセット] ブレードを選択した [プロパティ] メニューより設定します。</p>
+<p>なお、[認証方法] メニューでは、SSPR を実行するためにセットアップしておくべき MFA 方法の数と方法の種類を指定することが可能です。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg1-2.jpg">
+<p>Azure MFA に関しては、Azure MFA ポータルでの有効化や条件付きアクセスの評価方法として有効化など、[いつ MFA を求めるか] を複数のパターンで指定することができます。</p>
+<p>どんなパターンがあるかに関しては、[<a href="https://docs.microsoft.com/ja-jp/azure/active-directory/authentication/howto-mfa-getstarted" target="_blank" rel="noopener">クラウドベースの Azure Multi-Factor Authentication をデプロイする</a>] の技術情報をご参照ください。</p>
+<p>以下はこれまで利用されることが多かったのでは、と思われる  Azure MFA ポータルでユーザー単位で [いつでも AAD への認証時には MFA 認証が必要] という設定を有効にする場合の画面例となりますが、上記の技術情報に記載の通り弊社では<strong>最も柔軟な制御が行える条件付きアクセスのご利用を推奨しておりますので、今後はぜひ条件付きアクセスのご利用をご検討ください！</strong></p>
+<p>Azure MFA ポータルは、AAD ポータルから [ユーザー] ブレードを選択して、[すべてのユーザー] メニューから [Multi-Factor Authentication] をクリックするか、 [<a href="https://account.activedirectory.windowsazure.com/usermanagement/multifactorverification.aspx]" target="_blank" rel="noopener">https://account.activedirectory.windowsazure.com/usermanagement/multifactorverification.aspx]</a> を直接開くことでアクセスできる管理画面です。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg1-3-1024x143.jpg">
+<p>こちらが Azure MFA ポータルです。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg1-4.jpg">
+<p>MFA を必要とさせたいユーザーを選択して [有効にする] を選択します。</p>
+<h3 id="2-今までの-SSPR-と-Azure-MFA-の認証方法セットアップ画面"><a href="#2-今までの-SSPR-と-Azure-MFA-の認証方法セットアップ画面" class="headerlink" title="2. 今までの SSPR と Azure MFA の認証方法セットアップ画面"></a>2. 今までの SSPR と Azure MFA の認証方法セットアップ画面</h3><p>SSPR と Azure MFA を有効化した状態で、あるユーザーが Office 365 のように AAD への認証が必要なサービスへ初めてアクセスした場合、以下のような画面遷移になります。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-1.jpg">
+<p>まずはこのようにユーザー名とパスワードを指定します。フェデレーション認証環境の場合はフェデレーション サービス先の認証画面が表示されるので、そちらで認証を行います。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-2.jpg">
+<p>MFA 方法のセットアップが必要ですよ、という画面が表示されるので [次へ] を選択します。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-3.jpg">
+<p>まずは Azure MFA 方法のセットアップ画面が表示されます。<br>こちらでご希望の MFA 認証方法を設定し [次へ] をクリックすることで、指定した認証方法を実際に確認する処理の流れになります。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-4.jpg">
+<p>こちらは認証用 (携帯) 電話に SMS メッセージで認証コードを送付するパターンの認証方式の例です。<br>受け取った認証コードを画面内のフォームに入力して [確認] を選択することで、MFA 認証方法のセットアップが完了します。</p>
+<p>これで該当ユーザーの [MFA 方法のセットアップ] は終わった…と思って進めるともう1回以下の画面が表示されます。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-2.jpg">
+<p>さっき MFA 方法セットアップしたけどなあ…という印象をお持ちかもしれませんが [次へ] をクリックします。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-5.jpg">
+<p>先ほどとはちょっと違う画面が表示されますが、こちらが [SSPR でパスワードのリセットを行う際に必要な多要素認証の情報] の指定画面になります。<br>すでに [Azure MFA 用の多要素認証の方法] として電話番号を登録していたので、その番号を使いますか？ということで最初から認証用電話の番号が表示されています。<br>ここで [確認] をクリックして進めます。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-6.jpg">
+<p>SSPR 用の多要素認証の設定時にも [その指定は正しいですか？] を確認するため、実際にその方法を検証する画面になります。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-7.jpg">
+<p>検証が成功するとこのようにグリーン (検証済み) の認識になります。<br>なお、この画面では [SSPR でパスワードをリセットするために必要な追加認証方法の数と指定可能な認証方法の種類] の設定に沿った内容が表示されています。<br>この設定は、前述の Azure AD ポータルの [パスワード リセット] ブレードから [認証方法] を選択した画面で変更することも可能です。<br>上記のサンプル画面は、規定値である [リセットのために必要な方法の数 : 1] と [ユーザーが使用できる方法 : 電子メール、携帯電話] の設定が反映しています。<br>必要な方法の数が 1 なので、1つの方法だけ登録した時点で [完了] が選択できます。</p>
+<p>これで Azure MFA と SSPR、それぞれのための多要素認証方法が設定できました。</p>
+<h3 id="3-プレビュー機能の有効化の方法"><a href="#3-プレビュー機能の有効化の方法" class="headerlink" title="3. プレビュー機能の有効化の方法"></a>3. プレビュー機能の有効化の方法</h3><p>さて、ここからが今回の Blog でお伝えしたい [SSPR と Azure MFA の MFA 方法のセットアップを統合！] プレビュー機能を有効にする手順です。<br>AAD ポータルより [ユーザー] ブレードを選択し、[ユーザー設定] メニューを選択します。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg3-1.jpg">
+<p>[アクセス パネル プレビュー機能の設定を管理] をクリックします。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg3-2.jpg">
+<p>プレビュー機能は既定で無効になっていますので、有効にしたいユーザーが含まれるグループを選択するか、全ユーザーのいずれかを対象に有効にすることができます。<br>設定を変更したら同画面の [保存] ボタンをクリックして終了です。簡単ですね！</p>
+<h3 id="4-プレビュー機能を有効にした後の統合された-MFA-方法セットアップ画面"><a href="#4-プレビュー機能を有効にした後の統合された-MFA-方法セットアップ画面" class="headerlink" title="4. プレビュー機能を有効にした後の統合された MFA 方法セットアップ画面"></a>4. プレビュー機能を有効にした後の統合された MFA 方法セットアップ画面</h3><p>さて、この状態で [Azure MFA と SSPR 両方が有効になっているユーザーの初回サインイン時] の画面を見てみましょう。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg2-2.jpg">
+<p>ユーザー名とパスワードでの認証後、多要素認証方法のセットアップが必要であることを伝える画面が表示されるところまでは同じです。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-1.jpg">
+<p>これがプレビューの新しい多要素認証の方法をセットアップする画面です。<br>[セットアップ] を選択します。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-2.jpg">
+<p>ポップアップが表示されるのでこちらで認証用の電話番号と認証の方法 (SMS or 電話) を指定して進めます。<br>ここでも実際に指定した認証方法に対する検証が行われます。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-3.jpg">
+<p>検証が終了したら [完了] をクリックします。</p>
+<p>これだけで SSPR と Azure MFA 両方の [多要素認証の方法] のセットアップが終了です！<br>1回で終了しましたね。シンプルです。</p>
+<p>[初回セットアップ時に電話を使った方法 (SMS or 電話) しか選べないの？] という疑問を持たれた方もいるかもしれません。<br>これは、SSPR と Azure MFA、それぞれの [利用可能な認証方法] の設定が、既定では電話を使用した方法だけが共通しているためです。</p>
+<p>例えば、SSPR の認証方法として以下のようにモバイル アプリも選択可能な方法にします。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-4.jpg">
+<p>Azure MFA の選択可能な認証方法は既定で以下のようになっています。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-5.jpg">
+<p>このような設定状態で [Azure MFA と SSPR 両方が有効になっているユーザーの初回サインイン時] の画面を見ると…</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-6.jpg">
+<p>先ほどの例にはなかった [セキュリティ情報の選択] 項目が増えています。<br>こちらをクリックすると以下のような画面が表示されます。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-7.jpg">
+<p>認証方法として、電話と認証アプリ (モバイルアプリ) が選択できるようになりました。</p>
+<p>なお、最初のセットアップだけではなく、後で認証方法を変更したり別の認証方法を追加したりすることも、これまでと同様に行うことができます。</p>
+<p>アクセスパネルから [セキュリティ情報の編集] を選択します。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-8-1024x318.jpg">
+<p>もしくは [<a href="https://aka.ms/setupsecurityinfo]" target="_blank" rel="noopener">https://aka.ms/setupsecurityinfo]</a> へ直接アクセスしても同じ画面を開くことができます。</p>
+<img src="/blog/azure-active-directory/mfasetupinteg/mfasetupinteg4-9.jpg">
+<p>このように、登録済みの認証方法の修正や、別の認証方法を追加登録することも可能です。</p>
+<p><strong>Tips</strong></p>
+<p>ユーザーごとの Azure MFA 方法のセットアップ画面<br><a href="https://aka.ms/mfasetup" target="_blank" rel="noopener">https://aka.ms/mfasetup</a></p>
+<p>ユーザーごとの SSPR 用の多要素認証方法のセットアップ画面<br><a href="https://aka.ms/ssprsetup" target="_blank" rel="noopener">https://aka.ms/ssprsetup</a></p>
+<p>New! ユーザーごとの統合された多要素認証方法の設定画面<br><a href="https://aka.ms/setupsecurityinfo" target="_blank" rel="noopener">https://aka.ms/setupsecurityinfo</a></p>
+<p>上記内容が皆様の参考となりますと幸いです。どちら様も素敵な AAD ライフをお過ごしください。</p>
+<p>ご不明な点等がありましたら、ぜひ弊社サポート サービスをご利用ください。</p>
+<p>※本情報の内容（リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/mfasetupinteg/" data-id="cju29s41c003to0ytd6p1aaud" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/MFA/">MFA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/SSPR/">SSPR</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/roles-and-administrators" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/roles-and-administrators/" class="article-date">
+  <time datetime="2018-08-22T15:00:00.000Z" itemprop="datePublished">2018-08-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/roles-and-administrators/">Azure AD におけるロール管理の新しい方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Azure &amp; Identity サポート チームの栗井です。</p>
+<p>本記事は、2018年7月末に公開された A new way to manage roles and administrators in Azure AD を元にしています。<br>これまで、 Azure AD の全体管理者などのロールを割り当てられているユーザー一覧を取得することができなかったのですが、最近の更新により、簡単に確認できるようになりました。<br>元記事を参考に、ユーザーへのディレクトリロールの新しい割り当て・管理方法について、画面キャプチャを含めてご紹介します。</p>
+<p>ユーザの役割の確認や管理者権限の割り当てを、これまでより簡単におこなうことができます。</p>
+<p>以下が、新しい機能の特徴です。</p>
+<ul>
+<li>ビルトイン (既定) のディレクトリロールの一覧と、それぞれの詳細を確認可能</li>
+<li>役割の管理や設定がより簡単に</li>
+<li>関連ドキュメントへのリンク追加</li>
+</ul>
+<p>言い換えますと 「全体管理者は何人いるのか？」「このユーザーに割り当てられているのは何の役割か？」がすぐ分かるようになりました。</p>
+<img src="/blog/azure-active-directory/roles-and-administrators/roles-and-administrators.png">
+<p>概要画面から、新機能「ロールと管理者」がご利用できます</p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>ビルトイン ディレクトリ ロールの一覧とそれぞれの簡単な説明は 「ロールと管理者」をクリックすることで確認できます。これも最近追加されました Azure AD と連携するアプリケーションの管理を目的とした新しいロールも含まれます。</p>
+<p>現在サインインして操作を実施しているユーザー自身に何かしらのロールが割り当てられている場合、画面上部に表示されます。「ロール」をクリックすると、自身に割り当てられているロールと、それぞれの概要の一覧を確認できます。</p>
+<img src="/blog/azure-active-directory/roles-and-administrators/list-administrators.png">
+<p>図: 「ロールと管理者」下の、各ロールと説明の一覧</p>
+<p>また、ロールの行をクリックすると、そのロールに割り当てられているユーザーの一覧が確認できます。</p>
+<img src="/blog/azure-active-directory/roles-and-administrators/role-member.png">  
+<p>図: ロールに割り当てられているユーザー (メンバー) 一覧</p>
+<p>各ロールによりどのようなことができるのかという質問をよく頂きますが、それぞれのロールに何の権限があるのか、その詳細を一覧でみられるようになりました。同じ画面で、関連記事のリンクも見ることができます。ロールを最大限有効に使うためにぜひご活用ください。<br>画像に示すように、ブレードの「説明」をクリックするとこの画面が見られます。もしくはロールの一覧画面から、各行の右側にある「・・・」をクリックをすることでも、同じ画面に辿り着くことができます。</p>
+<p>あるロールに割り当てられているユーザの一覧に加えて、その逆引きである「あるユーザーに割り当てられているロールの一覧」を見ることができるようになりました。同じ画面から、ユーザーに新たなロールを追加することができます。<br>詳細は <a href="https://docs.microsoft.com/en-us/azure/active-directory/users-groups-roles/directory-assign-admin-roles" target="_blank" rel="noopener">Assigning administrator roles in Azure Active Directory</a>をご参照ください (英語ドキュメント)。</p>
+<img src="/blog/azure-active-directory/roles-and-administrators/add-role.png">  
+<p>図: ユーザーに割り当てられているロールの一覧と「ロールの追加」ボタン</p>
+<p>一人のユーザーに複数の特権ロール (privileged roles) を割り当てることも可能です。既に割り当てられているものは表示されません。</p>
+<img src="/blog/azure-active-directory/roles-and-administrators/user-role.png">  
+<p>図: 割り当て可能なロールの一覧</p>
+<h2 id="Azure-AD-PIM-での更新"><a href="#Azure-AD-PIM-での更新" class="headerlink" title="Azure AD PIM での更新"></a>Azure AD PIM での更新</h2><p>より細やかな権限管理は Azure AD Privileged Identity Management (PIM) で可能です。 Azure AD PIM の管理ブレードにも「ロールと管理者」へのリンクがあります。</p>
+<img src="/blog/azure-active-directory/roles-and-administrators/pim-link.png">  
+<p>図: Privileged Identity Management 画面から「ロールと管理者」へのリンク</p>
+<p>もし組織で PIM を有効にしていなくても、「PIMで管理」をクリックすれば、管理者保護のためにPIMをどのように活用できるか確認できます。無料のトライアルもご利用可能です。</p>
+<img src="/blog/azure-active-directory/roles-and-administrators/pim.png">
+<p>「PIM」で管理から、Privileged Identity Managementの情報が閲覧できます。</p>
+<p>上記内容が少しでも参考となりますと幸いです。製品動作に関する正式な見解や回答については、お客様環境などを十分に把握したうえでサポート部門より提供させていただきますので、ぜひ弊社サポート サービスをご利用ください。</p>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/roles-and-administrators/" data-id="cju29s3z6001ao0yt0bhcyo8n" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/users-can-register-applications" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/users-can-register-applications/" class="article-date">
+  <time datetime="2018-08-16T15:00:00.000Z" itemprop="datePublished">2018-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/users-can-register-applications/">「ユーザーはアプリケーションを登録できる」の設定について</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Azure Identity チームの宮林です。<br>今回は Azure  Active Directory における、アプリケーションの登録の制限について紹介します。</p>
+<p>Azure Active Directory では、お客様が開発したアプリケーションを登録することで、Azure Active Directory に登録されているアカウントを利用したシングルサインオンを実現することが可能です。  </p>
+<p>既定では、一般ユーザーでも、[アプリの登録] から自身で開発したアプリケーションを自由に登録することができます。一般ユーザーによるアプリケーションの登録は、Azure  Active Directory 内の [ユーザー設定] にある「ユーザーはアプリケーションを登録できる」で制御が可能です。下記画面のとおり本設定は既定で「はい」となっており、この状態での運用をお勧めします (お勧めしている理由は後述します)。  </p>
+<p>一方、ゲスト ユーザーは、「ユーザーはアプリケーションを登録できる」が「はい」となっていた場合でもアプリケーションを登録することができません。</p>
+<img src="/blog/azure-active-directory/users-can-register-applications/Users-can-register-applications1.jpg">
+<h3 id="ユーザーがアプリケーションを登録できる状態を推奨する理由"><a href="#ユーザーがアプリケーションを登録できる状態を推奨する理由" class="headerlink" title="ユーザーがアプリケーションを登録できる状態を推奨する理由"></a>ユーザーがアプリケーションを登録できる状態を推奨する理由</h3><p>管理者としては、一般のユーザーにアプリケーションを登録できるようにしておくことについて抵抗感を持たれるようなことがあるのではないかとも思います。 </p>
+<p>しかし、この設定を「いいえ」に設定してユーザーによる登録を制限した場合には、ユーザーは自身で Azure Active Directory のテナントを作成して組織の管理が及ばないテナントにアプリケーションを登録して作業を行う可能性が高くなります。このような状況は、いわゆるシャドー IT を促進してしまうことに繋がるため、「ユーザーはアプリケーションを登録できる」の設定を「はい」にすることを推奨しています。</p>
+<p>組織で管理されているユーザーがビジネスを目的として組織アカウントを使用してアプリケーションを利用されることで、管理者はどのようなアプリケーションが、どのユーザーによって利用されているか確認することができます。また、その利用が適切でない場合には、ユーザーに注意を促すこともできますし、ユーザーが組織を離れた場合にも、その組織アカウントを削除することでアプリケーションへのアクセスも停止させることができるなど一元管理のメリットを得られます。</p>
+<p>アプリケーションの追加に関して、以下の公開情報を併せてご参照ください。</p>
+<p>アプリケーションを Azure AD に追加する方法と理由<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/develop/active-directory-how-applications-are-added" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/develop/active-directory-how-applications-are-added</a></p>
+<h3 id="アプリケーションの登録を制限する方法"><a href="#アプリケーションの登録を制限する方法" class="headerlink" title="アプリケーションの登録を制限する方法"></a>アプリケーションの登録を制限する方法</h3><p>Azure Active Directory の [ユーザー設定] で、「ユーザーはアプリケーションを登録できる」を「いいえ」に変更することによって、一般ユーザーによるアプリの登録を行えなくすることが可能です。このとき、一般ユーザーがアプリケーションの登録を行おうとすると、十分な権限が無い旨のエラーが表示されます。</p>
+<p>なお、「ユーザーはアプリケーションを登録できる」を「いいえ」に設定した場合は、以下のロールを持つアカウントからのみ、アプリケーションの登録が可能です。</p>
+<ul>
+<li>全体管理者</li>
+<li>アプリケーション管理者</li>
+<li>アプリケーション開発者</li>
+<li>クラウド アプリケーション管理者</li>
+</ul>
+<p>従来、「ユーザーはアプリケーションを登録できる」を「いいえ」に設定した場合、アプリケーションを登録することができるのは全体管理者のみでした。しかし、現在では全体管理者以外にもアプリケーションの登録が可能なロールが追加されています。そのため、アプリケーションの登録の際に、必要以上の権限を与えずにアプリケーションの登録が行えます。</p>
+<p>アプリケーション管理者など、各管理者ロールが行える操作の詳細については、以下の弊社公開情報をご参照ください。</p>
+<p>Azure Active Directory での管理者ロールの割り当て<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/users-groups-roles/directory-assign-admin-roles" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/users-groups-roles/directory-assign-admin-roles</a></p>
+<p>ご不明な点がございましたら弊社サポートまでお気軽にお問い合わせください。</p>
+<p>上記内容が少しでも皆様の参考となりますと幸いです。</p>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/users-can-register-applications/" data-id="cju29s3z9001ho0ytfdhs6lkv" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory-connect/how-to-upgrade" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory-connect/how-to-upgrade/" class="article-date">
+  <time datetime="2018-08-09T15:00:00.000Z" itemprop="datePublished">2018-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory-connect/how-to-upgrade/">Azure AD Connect アップグレード手順</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。 Azure Identity サポートの谷です。</p>
+<p>Azure AD Connect (AADC) のアップグレード手順をご紹介いたします。AADC の更新バージョンのリリース頻度は高く、この 3 カ月でも 3 回更新バージョンがリリースされています。更新には、既知の不具合やセキュリティに関する修正に加えて機能強化も含まれています。そのため、できるだけ安定して AADC を運用いただくうえで弊社としての推奨は以下となります。</p>
+<ul>
+<li>最新バージョンの利用</li>
+<li>最低でも 6 カ月毎に最新バージョンへのアップグレード</li>
+</ul>
+<p>Azure AD Connect: バージョンのリリース履歴<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/connect/active-directory-aadconnect-version-history" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/connect/active-directory-aadconnect-version-history</a></p>
+<p>なお、サポートという観点では、リリースされている全てのバージョンの AADC が現在サポート対象となります。特定のバージョンの AADC をサポート終了する場合にはアップグレードを実施いただくために十分な期間を設け、ご案内いたしますので、ご安心ください。</p>
+<p>(トラブルシューティングなどの中で古いバージョンをご利用されている場合に切り分けのためのバージョンアップをお願いする、より詳細な調査をするためにも、まずアップグレードをお願いするという可能性があることについては予めご承知おきください)</p>
+<h2 id="アップグレードの流れ"><a href="#アップグレードの流れ" class="headerlink" title="アップグレードの流れ"></a>アップグレードの流れ</h2><h3 id="AADC-1-台構成の場合"><a href="#AADC-1-台構成の場合" class="headerlink" title="AADC 1 台構成の場合"></a>AADC 1 台構成の場合</h3><ol>
+<li>バージョンアップ前にサーバーの健全性確認</li>
+<li>設定情報 / ルールのバックアップ</li>
+<li>アップグレード</li>
+</ol>
+<h3 id="AADC-2-台以上の構成の場合"><a href="#AADC-2-台以上の構成の場合" class="headerlink" title="AADC 2 台以上の構成の場合"></a>AADC 2 台以上の構成の場合</h3><p>1 台構成の場合と同様でも構いませんが、より慎重に行う場合には、バージョンアップ時に片方ずつステージング モードに切り替え、同期処理に影響を与えないように実施することも可能です。この場合には、下記の流れで実施します。</p>
+<ol>
+<li>バージョンアップ前に両サーバーの健全性確認</li>
+<li>設定情報 / ルールのバックアップ</li>
+<li>1 台目アップグレード</li>
+<li>ステージングモードの切り替え</li>
+<li>アップグレード後の動作確認</li>
+<li>2 台目のアップグレード</li>
+<li>ステージングモードの切り替え</li>
+<li>アップグレード後の動作確認</li>
+<li>必要に応じてステージングモードの切り替え</li>
+</ol>
+<h2 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h2><h3 id="健全性確認"><a href="#健全性確認" class="headerlink" title="健全性確認"></a>健全性確認</h3><ol>
+<li>AADC サーバーにてイベント ログ (システム / アプリケーション) にてエラーや警告などの記録がないことを確認します。</li>
+<li>Synchronization Service Manager にて同期処理にて success 以外の記録がないことを確認します。</li>
+</ol>
+<h3 id="設定情報-ルールのバックアップ"><a href="#設定情報-ルールのバックアップ" class="headerlink" title="設定情報 / ルールのバックアップ"></a>設定情報 / ルールのバックアップ</h3><p>バックアップは万が一アップグレードが正常に実施できなかった場合に備えて取得いただくことをお勧めしております。正常にアップグレードが行えた場合には特にバックアップからのリストア等は不要となります。問題が生じた場合、リストア可能なのはルールのみとなります。設定情報は記録情報から手動で設定し直す必要があります。</p>
+<p>&lt;設定情報の記録&gt;</p>
+<ol>
+<li>Synchronization Service Manager を起動します。</li>
+<li>[Connectors] を選択します。</li>
+<li>オンプレミス AD のコネクタを右クリックし、[Properties] をクリックします。</li>
+<li>[Configure Directory Partitions] - [Containers] をクリックします。</li>
+<li>パスワードを入力し、[OK] をクリックします。</li>
+<li>同期対象の OU/コンテナの画面ショットを採取するなどし、情報を記録しておきます。</li>
+<li>[Select Object Types] をクリックします。</li>
+<li>[Show All] にチェックを入れ、全項目が確認できるように画面ショットを採取します。</li>
+<li>[Select Attributes] をクリックします。</li>
+<li>[Show All] にチェックを入れ、全項目が確認できるように画面ショットを採取します。</li>
+<li>デスクトップなどにある [Azure AD Connect] を実行し、構成ウィザードを開きます。</li>
+<li>[構成] をクリックします。</li>
+<li>[現在の構成を表示する] をクリックして、[次へ] をクリックします。</li>
+<li>全項目が確認できるように画面ショットを採取します。</li>
+</ol>
+<p>&lt;同期ルールのエクスポート&gt;</p>
+<ol>
+<li>スタート画面より Synchronization Rules Editor を起動します。</li>
+<li>全ルールを選択し、[Export] をクリックします。出力されたファイルを保存します (PS1 という拡張子で保存します。)<br>例) sync_rule.ps1</li>
+<li>[Direction] より [Outbound] を選択します。</li>
+<li>全ルールを選択し、[Export] をクリックします。出力されたファイルを保存します (PS1 という拡張子で保存します。)</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory-connect/how-to-upgrade/" data-id="cju29s3zi001uo0yt0tox5k0f" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/AAD-Connect/">AAD Connect</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory-connect/problem-cpu-usage-100-aadc-server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory-connect/problem-cpu-usage-100-aadc-server/" class="article-date">
+  <time datetime="2018-08-09T15:00:00.000Z" itemprop="datePublished">2018-08-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory-connect/problem-cpu-usage-100-aadc-server/">Azure AD Connect サーバーの CPU 使用率が頻繁に 100% になる問題について</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Azure ID チームの松枝です。<br>本記事では、Azure AD Connect サーバーの CPU 使用率が頻繁に 100% になる問題について、次のとおりご案内いたします。<br>先日より同様の事象について、多くのお問い合わせをいただいております (ご迷惑をお掛けしまして申し訳ありません)。<br>先日修正を含む Azure AD Connect のバージョンがリリースされましたので、もし本問題事象が発生しましたら、下記の対処方法を実施ください。</p>
+<h2 id="本事象の概要："><a href="#本事象の概要：" class="headerlink" title="本事象の概要："></a>本事象の概要：</h2><p>”バージョン 1.1.819.0 以前” の Azure AD Connect の不具合が原因で、 .NET Framework に関するセキュリティ更新プログラムの適用が行われた後、 Azure AD Connect サーバーの CPU 使用率 が常に 100% に近い高負荷状態になります。</p>
+<p><strong>事象発生が報告されている更新プログラム：</strong><br>KB4338420<br>KB4338606<br>KB4054542<br>KB4054566<br>KB4054590<br>KB4338814<br>KB4338419<br>KB4338605<br>KB4345418</p>
+<p><strong>参考情報：</strong></p>
+<ul>
+<li><a href="https://support.microsoft.com/en-us/help/4346822/high-cpu-usage-in-azure-active-directory-connect-health-for-sync" target="_blank" rel="noopener">High CPU issue in Azure Active Directory Connect Health for Sync</a></li>
+</ul>
+<p>もし、高負荷状態にあるプロセスが ”Microsoft.Identity.Health.AadSync.MonitoringAgent.Startup.exe” の場合、本事象に該当する可能性が高いと考えられます。</p>
+<h2 id="根本的な対処方法："><a href="#根本的な対処方法：" class="headerlink" title="根本的な対処方法："></a>根本的な対処方法：</h2><p>Azure AD Connect を、本事象に対する修正を含む最新バージョン Azure AD Connect 1.1.880.0 にアップグレードします。<br>バージョン 1.1.880.0 における修正内容につきましては、下記の弊社技術情報をご参照ください。</p>
+<ul>
+<li><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/reference-connect-version-history#118800" target="_blank" rel="noopener">Azure AD Connect: Version release history - 1.1.880.0</a></li>
+</ul>
+<h2 id="暫定的な対処方法："><a href="#暫定的な対処方法：" class="headerlink" title="暫定的な対処方法："></a>暫定的な対処方法：</h2><p>運用上の理由で上記の根本的な対処が難しい場合、本事象の原因となっているサービス「Azure AD Connect Health Sync Monitoring Service」を停止することでも回避できます。アップグレードするまでの暫定的な対処方法としてご検討ください。<br>なお、このサービスを停止した場合、Azure AD Connect Health for Sync の機能は利用できなくなりますが、Azure AD Connect の同期処理や認証処理に影響はありません。</p>
+<p>上記内容が少しでも参考となりますと幸いです。<br>製品動作に関する正式な見解や回答については、お客様環境などを十分に把握したうえでサポート部門より提供させていただきますので、ぜひ弊社サポート サービスをご利用ください。</p>
+<h2 id="関連する記事："><a href="#関連する記事：" class="headerlink" title="関連する記事："></a>関連する記事：</h2><ul>
+<li><a href="/blog/azure-active-directory-connect/how-to-upgrade/">Azure AD Connect アップグレード手順</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory-connect/problem-cpu-usage-100-aadc-server/" data-id="cju29s3zl001yo0ytnckgx4r1" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/AAD-Connect/">AAD Connect</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/about-rbac" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/about-rbac/" class="article-date">
+  <time datetime="2018-08-08T15:00:00.000Z" itemprop="datePublished">2018-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/about-rbac/">RBAC のスコープについて</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Azure &amp; Identity サポート チームの坂井です。</p>
+<p>今回は ロールベースのアクセス制御 (RBAC) について紹介します。Azure の各種リソースに対するアクセス制御 (IAM) とも呼ばれ、リソースに対して実行できること、そのユーザーがアクセスできる領域を管理するのに役立ちます。</p>
+<p>RBAC の設定ポイントとしては、3 つあります。</p>
+<ul>
+<li><p>セキュリティ プリンシパル</p>
+<p>  権限を付与する対象を表します。ユーザー、グループ、サービス プリンシパルに設定可能です-</p>
+</li>
+<li><p>ロール (権限) 定義</p>
+<p>  組み込みロールやカスタム ロールから、付与したい権限の種類を決定します</p>
+</li>
+<li><p>Scope (スコープ)</p>
+<p>  権限が適用される範囲を決定します(サブスクリプション &gt; リソース グループ &gt; リソース)</p>
+</li>
+</ul>
+<p>サブスクリプション全体に対して権限を付与すると、リソース グループ、リソースへと権限が継承されます。ここからは “スコープ” について具体例をもとに、紹介します。</p>
+<h2 id="シナリオ-1-サブスクリプション単位"><a href="#シナリオ-1-サブスクリプション単位" class="headerlink" title="シナリオ 1: サブスクリプション単位"></a>シナリオ 1: サブスクリプション単位</h2><ul>
+<li><strong>設定内容</strong>: サブスクリプション A には「所有者」権限、サブスクリプション B には権限の付与なし</li>
+<li><strong>設定結果</strong>: ユーザーは、サブスクリプション A のすべての操作が可能ですが、サブスクリプション B を参照することもできない</li>
+<li><strong>設定手順</strong>: [サブスクリプション] - [サブスクリプション A ] - [アクセス制御 (IAM) ] より 「＋追加」</li>
+</ul>
+<img src="/blog/azure-active-directory/about-rbac/scenario1.png">
+<h2 id="シナリオ-2-リソース-グループ単位"><a href="#シナリオ-2-リソース-グループ単位" class="headerlink" title="シナリオ 2: リソース グループ単位"></a>シナリオ 2: リソース グループ単位</h2><ul>
+<li><strong>設定内容</strong>: リソース グループ 1 には「所有者」権限、リソース グループ 2 には権限の付与なし</li>
+<li><strong>設定結果</strong>: ユーザーは、リソース グループ  1  配下のすべての操作が可能ですが、リソース グループ 2 を参照することもできません。 また、新しいリソース グループの作成など、サブスクリプションのスコープで操作が必要な操作はできない</li>
+<li><strong>設定手順</strong>: [リソース グループ] - [リソース グループ 1 ] - [アクセス制御 (IAM) ] より 「＋追加」</li>
+</ul>
+<img src="/blog/azure-active-directory/about-rbac/scenario2.png">
+<h2 id="シナリオ-3-リソース単位"><a href="#シナリオ-3-リソース単位" class="headerlink" title="シナリオ 3 : リソース単位"></a>シナリオ 3 : リソース単位</h2><ul>
+<li><strong>設定内容</strong>: リソース a には「所有者」権限、その他権限の付与なし</li>
+<li><strong>設定結果</strong>: ユーザーは、リソース a のすべての操作が可能ですが、その他リソースの参照や操作はできない</li>
+<li><strong>設定手順</strong>: [リソース グループ 1 ] - [リソース a ] - [アクセス制御 (IAM) ] より 「＋追加」</li>
+</ul>
+<img src="/blog/azure-active-directory/about-rbac/scenario3.png">
+<h2 id="シナリオ-4-別スコープで、別の権限を付与"><a href="#シナリオ-4-別スコープで、別の権限を付与" class="headerlink" title="シナリオ 4 : 別スコープで、別の権限を付与"></a>シナリオ 4 : 別スコープで、別の権限を付与</h2><ul>
+<li><strong>設定内容</strong>: サブスクリプション Aには「所有者」権限、サブスクリプション B のリソース グループ 4 に「閲覧者」の権限を付与</li>
+<li><strong>設定結果</strong>: ユーザーは、サブスクリプション A のすべての操作が可能です。サブスクリプション B については、リソース グループ 4 の閲覧 (つまり参照) のみ可能です。 このシナリオは、RBAC の設定がひとつのユーザーやグループ オブジェクトに対して、複数のスコープや異なった権限を付与することが可能であることを示す</li>
+<li><strong>設定手順</strong>: [サブスクリプション] - [サブスクリプション A ] - [アクセス制御 (IAM) ] より 「＋追加」で役割を「所有者」で選択、もしくは [リソース グループ] - [リソース グループ 4 ] - [アクセス制御(IAM) ] より 「＋追加」で役割を「閲覧者」で選択</li>
+</ul>
+<img src="/blog/azure-active-directory/about-rbac/scenario4.png">
+<h2 id="シナリオ-5-親スコープからの継承"><a href="#シナリオ-5-親スコープからの継承" class="headerlink" title="シナリオ 5 : 親スコープからの継承"></a>シナリオ 5 : 親スコープからの継承</h2><ul>
+<li><strong>設定内容</strong>: サブスクリプション Aには「閲覧者」権限、リソース グループ 2 に「所有者」の権限を付与</li>
+<li><strong>設定結果</strong>: ユーザーは、サブスクリプション A のすべての参照が可能かつ、リソース グループ 2 配下において、すべての操作が可能 </li>
+<li><strong>設定手順</strong>: [サブスクリプション] - [サブスクリプション A ] - [アクセス制御 (IAM) ] より 「＋追加」で役割を「閲覧者」で選択、もしくは [リソース グループ] - [リソース グループ 2 ] - [アクセス制御(IAM) ] より 「＋追加」で役割を「所有者」で選択</li>
+</ul>
+<img src="/blog/azure-active-directory/about-rbac/scenario5.png">
+<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>サブスクリプションとリソース グループに与える権限を逆にして、サブスクリプション A には「所有者」権限、リソース グループ 2 に「閲覧者」を付与した場合は、リソース グループ 2 に対しても、より強力な「所有者」の権限が継承されます。</p>
+<img src="/blog/azure-active-directory/about-rbac/supplement.png">
+<p>各サブスクリプションが紐づく Azure AD が異なる場合について</p>
+<p>今回のシナリオはすべて、サブスクリプション A と サブスクリプション B が同じ Azure AD に紐づいている前提です。もし、サブスクリプション A - Azure AD 1、サブスクリプション B - Azure AD 2 というようにそれぞれのサブスクリプションが別の Azure AD に紐づいている場合は、設定やリソースを操作するためにはディレクトリの切り替えを実施する必要があります。</p>
+<img src="/blog/azure-active-directory/about-rbac/directory-switching.png">
+<p>また、サブスクリプションの権限と Azure AD の権限は異なりますので、サブスクリプションに対して「所有者」の権限を付与しても、Azure AD 上のユーザー作成・削除、パスワード変更などの管理者操作が行えるわけではありませんので、その点ご注意ください。こちらについては、リンクのブログでも紹介しておりますので、合わせてご参照ください。</p>
+<p>上記内容が少しでも皆様の参考となりますと幸いです。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/about-rbac/" data-id="cju29s3y20005o0ytj4i34v6b" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/RBAC/">RBAC</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/microsoft-graph-api-signin-activity-reports" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/microsoft-graph-api-signin-activity-reports/" class="article-date">
+  <time datetime="2018-08-08T15:00:00.000Z" itemprop="datePublished">2018-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/microsoft-graph-api-signin-activity-reports/">Microsoft Graph API を利用して Azure AD のサインイン アクティビティ レポートを CSV ファイルで取得する PowerShell スクリプト</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは Azure &amp; Identity サポート チームの 姚 ヨウです。</p>
+<p>前回、Azure AD のサインイン アクティビティ レポートと監査アクティビティ レポートを Azure AD Graph API を経緯し、PowerShell で csv 形式で取得できるスクリプトを紹介しました。</p>
+<p>既にご存知の方もいらっしゃると思いますが、マイクロソフトとしては、Azure AD Graph API ではなく、 Microsoft Graph API の利用を推進しています。</p>
+<p>今回は、PowerShell スクリプトで Microsoft Graph API を利用して Azure AD のサインイン アクティビティ レポートを csv 形式で取得する方法を紹介します。</p>
+<p>今回のスクリプトは前回紹介しましたスクリプトと比較して以下の利点があります。</p>
+<ul>
+<li>サインイン アクティビティ レポートの内容をより詳細に csv ファイルに格納します</li>
+<li>アプリケーションのキーではなく証明書を利用することでセキュリティを高めています (※)</li>
+</ul>
+<p>※ セキュリティ観点で 平文のキーではなく証明書を用いたトークン取得を推奨しています。</p>
+<p>以下に一連の手順を大まかに 3 つに分けて解説します。</p>
+<p>事前に、<code>C:\SignInReport</code> フォルダーなど作業用のフォルダーを作成し、以下の手順にお進みください。</p>
+<h3 id="1-認証に使用する証明書の準備"><a href="#1-認証に使用する証明書の準備" class="headerlink" title="1. 認証に使用する証明書の準備"></a><strong>1. 認証に使用する証明書の準備</strong></h3><p>トークン取得に証明書を用います。</p>
+<p>これは、これまでの平文のキーを用いる方法よりもセキュリティ的に強固であり、推奨している方法です。以下の PowerShell スクリプトは、自己署名証明書を生成し、ユーザーの証明書ストア (個人) に格納します。</p>
+<p>さらに、公開鍵を含む証明書 (SelfSignedCert.cer ファイル) をカレント  ディレクトリに出力します。</p>
+<p>エディターを開き、下記内容をコピーして貼り付けください。そのファイルを <code>CreaterCert.ps1</code> として <code>C:\SignInReport</code> フォルダー配下に保存します。</p>
+<p>保存したら、このスクリプトを実行ください。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## Create self signed certificate</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="variable">$cert</span> = New-SelfSignedCertificate -Subject <span class="string">"CN=SelfSignedCert"</span> -CertStoreLocation <span class="string">"Cert:\CurrentUser\My"</span>  -KeyExportPolicy Exportable -KeySpec Signature</span><br><span class="line"><span class="variable">$cert</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## Export new self signed certificate as .cer file</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="variable">$cerfile</span> = <span class="string">".\SelfSignedCert.cer"</span></span><br><span class="line">Export-Certificate -Cert <span class="variable">$cert</span> -FilePath <span class="variable">$cerfile</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-処理に必要なライブラリを-nuget-で取得するスクリプトの準備と実行"><a href="#2-処理に必要なライブラリを-nuget-で取得するスクリプトの準備と実行" class="headerlink" title="2. 処理に必要なライブラリを nuget で取得するスクリプトの準備と実行"></a><strong>2. 処理に必要なライブラリを nuget で取得するスクリプトの準備と実行</strong></h3><p>証明書を用いたトークン取得処理はライブラリを用いて行います。</p>
+<p>処理に必要なライブラリは nuget で取得します。</p>
+<p>テキスト エディターを開き、下記内容をコピーして貼り付けください。</p>
+<p>そのファイルを GetModuleByNuget.ps1 として C:\SignInReport フォルダー配下に保存および実行ください。本スクリプトを実行すると、C:\SignInReport 配下に Tools というフォルダーが作成され、Microsoft.IdentityModel.Clients.ActiveDirectory.dll などのファイルが保存されます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## Download NuGet.exe</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="variable">$sourceNugetExe</span> = <span class="string">"https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"</span></span><br><span class="line"><span class="variable">$targetNugetExe</span> = <span class="string">".\nuget.exe"</span></span><br><span class="line"><span class="built_in">Remove-Item</span> .\Tools -Force -Recurse -ErrorAction Ignore</span><br><span class="line"><span class="built_in">Invoke-WebRequest</span> <span class="variable">$sourceNugetExe</span> -OutFile <span class="variable">$targetNugetExe</span></span><br><span class="line"><span class="built_in">Set-Alias</span> nuget <span class="variable">$targetNugetExe</span> -Scope Global -Verbose</span><br><span class="line"></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## Download Microsoft.IdentityModel.Clients.ActiveDirectory.dll</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line">./nuget install Microsoft.IdentityModel.Clients.ActiveDirectory -O .\Tools</span><br><span class="line">md .\Tools\Microsoft.IdentityModel.Clients.ActiveDirectory</span><br><span class="line"><span class="variable">$prtFolder</span> = <span class="built_in">Get-ChildItem</span> ./Tools | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.Name <span class="nomarkup">-match</span> <span class="string">'Microsoft.IdentityModel.Clients.ActiveDirectory.'</span>&#125;</span><br><span class="line">move .\Tools\<span class="variable">$prtFolder</span>\lib\net45\*.* .\Tools\Microsoft.IdentityModel.Clients.ActiveDirectory</span><br><span class="line"><span class="built_in">Remove-Item</span> .\Tools\<span class="variable">$prtFolder</span> -Force -Recurse</span><br><span class="line"></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## Remove NuGet.exe</span></span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="built_in">Remove-Item</span> nuget.exe</span><br></pre></td></tr></table></figure>
+<h3 id="3-サインイン-ログを取得するスクリプトの準備"><a href="#3-サインイン-ログを取得するスクリプトの準備" class="headerlink" title="3. サインイン ログを取得するスクリプトの準備"></a><strong>3. サインイン ログを取得するスクリプトの準備</strong></h3><p>1 および 2 の手順を実行し、証明書および実行に必要なライブラリの準備が整いましたら、以下の手順で、アプリケーションおよびスクリプトを準備します。</p>
+<p>まず、以下の公開情報の手順に従って、アプリケーションを登録します。</p>
+<ul>
+<li>Azure AD Reporting API にアクセスするための前提条件<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/active-directory-reporting-api-prerequisites-azure-portal" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/active-directory-reporting-api-prerequisites-azure-portal</a></li>
+</ul>
+<p>今回はアプリケーションのクライアント シークレットとして証明書を利用します。</p>
+<p>そのため、 上記の公開情報では “アプリケーションのクライアント シークレットを取得する” の手順において 5 でキーを生成していますが、その代わりに [公開キーのアップロード] を実行します。</p>
+<p>ここで、このブログ記事の “1. 認証に使用する証明書の準備” の手順を実行した結果作成される SelfSignedCert.cer を指定してアップロード後、 [保存] をクリックします。</p>
+<p>アプリケーションの登録、証明書の登録が完了しましたら、テキスト エディタを開き、次の中身をコピーして貼り付け、環境に合わせて赤字部分の内容を設定します (環境に合わせた設定は前提条件に関する公開情報の “構成設定を収集する” に情報があります)。</p>
+<p>設定が完了しましたら、 <code>GetSignInLogs.ps1</code> ファイルとして<code>C:\SignInReport</code> 配下に保存し、実行します。</p>
+<p>これによりサインイン アクティビティ レポートを csv ファイルとして取得できます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Add-Type</span> -Path <span class="string">".\Tools\Microsoft.IdentityModel.Clients.ActiveDirectory\Microsoft.IdentityModel.Clients.ActiveDirectory.dll"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Authorization &amp; resource Url</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="variable">$tenantId</span> = <span class="string">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span> </span><br><span class="line"><span class="variable">$resource</span> = <span class="string">"https://graph.microsoft.com"</span> </span><br><span class="line"><span class="variable">$clientID</span> = <span class="string">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span></span><br><span class="line"><span class="variable">$thumprint</span> = <span class="string">"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span></span><br><span class="line"><span class="variable">$outfile</span> = <span class="string">"output.csv"</span></span><br><span class="line"><span class="variable">$data</span> = @()</span><br><span class="line"></span><br><span class="line"><span class="comment"># tenantID は [Azure Active Directory] - [プロパティ] よりディレクトリ ID を取得します。</span></span><br><span class="line"><span class="comment"># clientID は "Azure AD Reporting API にアクセスするための前提条件" の "アプリケーションのクライアント ID を取得する" の手順で取得します。</span></span><br><span class="line"><span class="comment"># thumbprint は公開キーのアップロードを実行後の "キー" のページで "公開鍵" にサムプリントとして表示されている情報です。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Authorization &amp; resource Url</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="variable">$authUrl</span> = <span class="string">"https://login.microsoftonline.com/<span class="variable">$tenantId</span>/"</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Get certificate</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="variable">$cert</span> = <span class="built_in">Get-ChildItem</span> -path cert:\CurrentUser\My | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.Thumbprint <span class="nomarkup">-eq</span> <span class="variable">$thumprint</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Create AuthenticationContext for acquiring token </span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="variable">$authContext</span> = <span class="built_in">New-Object</span> Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext <span class="variable">$authUrl</span>, <span class="literal">$false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Create credential for client application </span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="variable">$clientCred</span> = <span class="built_in">New-Object</span> Microsoft.IdentityModel.Clients.ActiveDirectory.ClientAssertionCertificate <span class="variable">$clientID</span>, <span class="variable">$cert</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Acquire the authentication result</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="variable">$authResult</span> = <span class="variable">$authContext</span>.AcquireTokenAsync(<span class="variable">$resource</span>, <span class="variable">$clientCred</span>).Result </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">$null</span> <span class="nomarkup">-ne</span> <span class="variable">$authResult</span>.AccessToken) &#123;</span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="comment"># Compose the access token type and access token for authorization header</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line">    <span class="variable">$headerParams</span> = @&#123;<span class="string">'Authorization'</span> = <span class="string">"$(<span class="variable">$authResult</span>.AccessTokenType) $(<span class="variable">$authResult</span>.AccessToken)"</span>&#125;</span><br><span class="line">    <span class="variable">$url</span> = <span class="string">"<span class="variable">$resource</span>/beta/auditLogs/signIns"</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">Write-Output</span> <span class="string">"Fetching data using Uri: <span class="variable">$url</span>"</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">Do</span> &#123;</span><br><span class="line">        <span class="variable">$myReport</span> = (<span class="built_in">Invoke-WebRequest</span> -UseBasicParsing -Headers <span class="variable">$headerParams</span> -Uri <span class="variable">$url</span>)</span><br><span class="line">        <span class="variable">$myReportValue</span> = (<span class="variable">$myReport</span>.Content | <span class="built_in">ConvertFrom-Json</span>).value</span><br><span class="line">        <span class="variable">$myReportVaultCount</span> = <span class="variable">$myReportValue</span>.Count</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">for</span> (<span class="variable">$j</span> = <span class="number">0</span>; <span class="variable">$j</span> <span class="nomarkup">-lt</span> <span class="variable">$myReportVaultCount</span>; <span class="variable">$j</span>++) &#123;</span><br><span class="line">            <span class="variable">$eachEvent</span> = @&#123;&#125;</span><br><span class="line"> </span><br><span class="line">            <span class="variable">$thisEvent</span> = <span class="variable">$myReportValue</span>[<span class="variable">$j</span>]</span><br><span class="line">            <span class="variable">$canumbers</span> = <span class="variable">$thisEvent</span>.conditionalAccessPolicies.Count</span><br><span class="line"> </span><br><span class="line">            <span class="variable">$eachEvent</span> = <span class="variable">$thisEvent</span> |</span><br><span class="line">            select id,</span><br><span class="line">            createdDateTime,</span><br><span class="line">            userDisplayName,</span><br><span class="line">            userPrincipalName,</span><br><span class="line">            userId,</span><br><span class="line">            appId,</span><br><span class="line">            appDisplayName,</span><br><span class="line">            ipAddress,</span><br><span class="line">            clientAppUsed,</span><br><span class="line">            mfaDetail,</span><br><span class="line">            correlationId,</span><br><span class="line">            conditionalAccessStatus,</span><br><span class="line">            isRisky,</span><br><span class="line">            riskLevel,</span><br><span class="line"> </span><br><span class="line">            @&#123;Name = <span class="string">'status.errorCode'</span>; Expression = &#123;<span class="variable">$_</span>.status.errorCode&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'status.failureReason'</span>; Expression = &#123;<span class="variable">$_</span>.status.failureReason&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'status.additionalDetails'</span>; Expression = &#123;<span class="variable">$_</span>.status.additionalDetails&#125;&#125;,</span><br><span class="line"> </span><br><span class="line">            @&#123;Name = <span class="string">'deviceDetail.deviceId'</span>; Expression = &#123;<span class="variable">$_</span>.deviceDetail.deviceId&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'deviceDetail.displayName'</span>; Expression = &#123;<span class="variable">$_</span>.deviceDetail.displayName&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'deviceDetail.operatingSystem'</span>; Expression = &#123;<span class="variable">$_</span>.deviceDetail.operatingSystem&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'deviceDetail.browser'</span>; Expression = &#123;<span class="variable">$_</span>.deviceDetail.browser&#125;&#125;,</span><br><span class="line"> </span><br><span class="line">            @&#123;Name = <span class="string">'location.city'</span>; Expression = &#123;<span class="variable">$_</span>.location.city&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'location.state'</span>; Expression = &#123;<span class="variable">$_</span>.location.state&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'location.countryOrRegion'</span>; Expression = &#123;<span class="variable">$_</span>.location.countryOrRegion&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'location.geoCoordinates.altitude'</span>; Expression = &#123;<span class="variable">$_</span>.location.geoCoordinates.altitude&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'location.geoCoordinates.latitude'</span>; Expression = &#123;<span class="variable">$_</span>.location.geoCoordinates.latitude&#125;&#125;,</span><br><span class="line">            @&#123;Name = <span class="string">'location.geoCoordinates.longitude'</span>; Expression = &#123;<span class="variable">$_</span>.location.geoCoordinates.longitude&#125;&#125;</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">for</span> (<span class="variable">$k</span> = <span class="number">0</span>; <span class="variable">$k</span> <span class="nomarkup">-lt</span> <span class="variable">$canumbers</span>; <span class="variable">$k</span>++) &#123;</span><br><span class="line">                <span class="variable">$temp</span> = <span class="variable">$thisEvent</span>.conditionalAccessPolicies[<span class="variable">$k</span>].id</span><br><span class="line">                <span class="variable">$eachEvent</span> = <span class="variable">$eachEvent</span> | <span class="built_in">Add-Member</span> @&#123;<span class="string">"conditionalAccessPolicies.id<span class="variable">$k</span>"</span> = <span class="variable">$temp</span>&#125; -PassThru</span><br><span class="line"> </span><br><span class="line">                <span class="variable">$temp</span> = <span class="variable">$thisEvent</span>.conditionalAccessPolicies[<span class="variable">$k</span>].displayName</span><br><span class="line">                <span class="variable">$eachEvent</span> = <span class="variable">$eachEvent</span> | <span class="built_in">Add-Member</span> @&#123;<span class="string">"conditionalAccessPolicies.displayName<span class="variable">$k</span>"</span> = <span class="variable">$temp</span>&#125; -PassThru</span><br><span class="line"> </span><br><span class="line">                <span class="variable">$temp</span> = <span class="variable">$thisEvent</span>.conditionalAccessPolicies[<span class="variable">$k</span>].enforcedGrantControls</span><br><span class="line">                <span class="variable">$eachEvent</span> = <span class="variable">$eachEvent</span> | <span class="built_in">Add-Member</span> @&#123;<span class="string">"conditionalAccessPolicies.enforcedGrantControls<span class="variable">$k</span>"</span> = <span class="variable">$temp</span>&#125; -PassThru</span><br><span class="line"> </span><br><span class="line">                <span class="variable">$temp</span> = <span class="variable">$thisEvent</span>.conditionalAccessPolicies[<span class="variable">$k</span>].enforcedSessionControls</span><br><span class="line">                <span class="variable">$eachEvent</span> = <span class="variable">$eachEvent</span> | <span class="built_in">Add-Member</span> @&#123;<span class="string">"conditionalAccessPolicies.enforcedSessionControls<span class="variable">$k</span>"</span> = <span class="variable">$temp</span>&#125; -PassThru</span><br><span class="line"> </span><br><span class="line">                <span class="variable">$temp</span> = <span class="variable">$thisEvent</span>.conditionalAccessPolicies[<span class="variable">$k</span>].result</span><br><span class="line">                <span class="variable">$eachEvent</span> = <span class="variable">$eachEvent</span> | <span class="built_in">Add-Member</span> @&#123;<span class="string">"conditionalAccessPolicies.result<span class="variable">$k</span>"</span> = <span class="variable">$temp</span>&#125; -PassThru</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$data</span> += <span class="variable">$eachEvent</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment">#Get url from next link</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="variable">$url</span> = (<span class="variable">$myReport</span>.Content | <span class="built_in">ConvertFrom-Json</span>).<span class="string">'@odata.nextLink'</span></span><br><span class="line">    &#125;<span class="keyword">while</span> (<span class="variable">$url</span> <span class="nomarkup">-ne</span> <span class="literal">$null</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">Write-Host</span> <span class="string">"ERROR: No Access Token"</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="variable">$data</span> | Sort -Property createdDateTime  | <span class="built_in">Export-Csv</span> <span class="variable">$outfile</span> -encoding <span class="string">"utf8"</span> -NoTypeInformation</span><br></pre></td></tr></table></figure>
+<p>このスクリプトで取得できるサインイン アクティビティ レポートをさらに詳細にフィルターしたい場合、以下の公開情報を参照いただければと思います。</p>
+<ul>
+<li>signIn resource type<br><a href="https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/resources/signin" target="_blank" rel="noopener">https://developer.microsoft.com/en-us/graph/docs/api-reference/beta/resources/signin</a></li>
+</ul>
+<p>次回は監査アクティビティ レポートの取得方法を紹介いたします。</p>
+<p>このブログの情報がお客様の検証や運用のお役に少しでもお役に立てばと思います。</p>
+<p>製品動作に関する正式な見解や回答については、お客様環境などを十分に把握したうえでサポート部門より提供させていただきますので、ぜひ弊社サポート サービスをご利用ください。</p>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/microsoft-graph-api-signin-activity-reports/" data-id="cju29s41e003wo0yt8e0fkgub" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/graph-api/">graph api</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/signin-log/">signin log</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="../../">&laquo; 戻る</a><a class="page-number" href="../../">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="page-number" href="../4/">4</a><span class="space">&hellip;</span><a class="page-number" href="../6/">6</a><a class="extend next" rel="next" href="../3/">次へ &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AAD-Connect/">AAD Connect</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AD-FS/">AD FS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AD-Sync/">AD Sync</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-Application-Proxy/">Azure AD Application Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-B2B/">Azure AD B2B</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-Directory-Rolls/">Azure AD Directory Rolls</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-License/">Azure AD License</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CBA/">CBA</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Conditional-Access/">Conditional Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ExpressRoute/">ExpressRoute</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hard-match/">Hard match</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hybrid-Azure-AD-Join/">Hybrid Azure AD Join</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MFA/">MFA</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/RBAC/">RBAC</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SSO/">SSO</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SSPR/">SSPR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Sgin-in-log/">Sgin-in log</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Smart-lockout/">Smart lockout</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Subscription/">Subscription</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Tenant-Restrictions/">Tenant Restrictions</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Token/">Token</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/UPN/">UPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-Defender-ATP/">Windows Defender ATP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Workplace-Join/">Workplace Join</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/graph-api/">graph api</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/signin-log/">signin log</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/サポート/">サポート</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/トラブルシューティング/">トラブルシューティング</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/情報採取/">情報採取</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/証明書/">証明書</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/証明書認証/">証明書認証</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/AAD-Connect/" style="font-size: 18.33px;">AAD Connect</a> <a href="../../tags/AD-FS/" style="font-size: 16.67px;">AD FS</a> <a href="../../tags/AD-Sync/" style="font-size: 10px;">AD Sync</a> <a href="../../tags/Azure-AD/" style="font-size: 20px;">Azure AD</a> <a href="../../tags/Azure-AD-Application-Proxy/" style="font-size: 10px;">Azure AD Application Proxy</a> <a href="../../tags/Azure-AD-B2B/" style="font-size: 13.33px;">Azure AD B2B</a> <a href="../../tags/Azure-AD-Directory-Rolls/" style="font-size: 10px;">Azure AD Directory Rolls</a> <a href="../../tags/Azure-AD-License/" style="font-size: 10px;">Azure AD License</a> <a href="../../tags/CBA/" style="font-size: 10px;">CBA</a> <a href="../../tags/Conditional-Access/" style="font-size: 15px;">Conditional Access</a> <a href="../../tags/ExpressRoute/" style="font-size: 10px;">ExpressRoute</a> <a href="../../tags/Hard-match/" style="font-size: 10px;">Hard match</a> <a href="../../tags/Hybrid-Azure-AD-Join/" style="font-size: 10px;">Hybrid Azure AD Join</a> <a href="../../tags/Intune/" style="font-size: 11.67px;">Intune</a> <a href="../../tags/MFA/" style="font-size: 11.67px;">MFA</a> <a href="../../tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="../../tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="../../tags/RBAC/" style="font-size: 11.67px;">RBAC</a> <a href="../../tags/SSO/" style="font-size: 10px;">SSO</a> <a href="../../tags/SSPR/" style="font-size: 10px;">SSPR</a> <a href="../../tags/Security/" style="font-size: 11.67px;">Security</a> <a href="../../tags/Sgin-in-log/" style="font-size: 10px;">Sgin-in log</a> <a href="../../tags/Smart-lockout/" style="font-size: 10px;">Smart lockout</a> <a href="../../tags/Subscription/" style="font-size: 10px;">Subscription</a> <a href="../../tags/Tenant-Restrictions/" style="font-size: 10px;">Tenant Restrictions</a> <a href="../../tags/Token/" style="font-size: 10px;">Token</a> <a href="../../tags/UPN/" style="font-size: 10px;">UPN</a> <a href="../../tags/Windows-Defender-ATP/" style="font-size: 10px;">Windows Defender ATP</a> <a href="../../tags/Workplace-Join/" style="font-size: 10px;">Workplace Join</a> <a href="../../tags/graph-api/" style="font-size: 11.67px;">graph api</a> <a href="../../tags/signin-log/" style="font-size: 11.67px;">signin log</a> <a href="../../tags/サポート/" style="font-size: 11.67px;">サポート</a> <a href="../../tags/トラブルシューティング/" style="font-size: 11.67px;">トラブルシューティング</a> <a href="../../tags/情報採取/" style="font-size: 11.67px;">情報採取</a> <a href="../../tags/証明書/" style="font-size: 10px;">証明書</a> <a href="../../tags/証明書認証/" style="font-size: 10px;">証明書認証</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">八月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">十月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../azure-active-directory/nesting-group/">入れ子 (ネスト) グループへの権限付与について</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory/how-to-get-sign-in-logs/">Azure AD サインイン ログ取得方法まとめ</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory/last-signin-reports/">PowerShell にて全ユーザーの最終サインイン日時を一括で取得する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory-connect/introduction-staging-server/">ステージング サーバーのすゝめ</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory/create-subscription-error/">サブスクリプション作成時のエラー「アカウントが Azure サブスクリプションに関連付けられないディレクトリに属しています。別のアカウントでサインインしてください」</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Azure Identity Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="../../fancybox/jquery.fancybox.css">
+  <script src="../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

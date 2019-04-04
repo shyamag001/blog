@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <!-- this tag should remove when publish production  -->
+  <meta name="”robots”" content="”noindex”">
+  
+
+  
+  <title>Japan Azure Identity Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="日本マイクロソフトの Azure Active Directory と AD FS に関するサポート情報のブログです。">
+<meta name="keywords" content="Azure,Azure AD,Identity,AD FS">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Japan Azure Identity Support Blog">
+<meta property="og:url" content="https://jpazureid.github.io/page/3/index.html">
+<meta property="og:site_name" content="Japan Azure Identity Support Blog">
+<meta property="og:description" content="日本マイクロソフトの Azure Active Directory と AD FS に関するサポート情報のブログです。">
+<meta property="og:locale" content="ja">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Japan Azure Identity Support Blog">
+<meta name="twitter:description" content="日本マイクロソフトの Azure Active Directory と AD FS に関するサポート情報のブログです。">
+  
+    <link rel="alternate" href="../../atom.xml" title="Japan Azure Identity Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Azure Identity Support Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-azure-active-directory/about-baseline-policy-require-mfa-for-admins" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/about-baseline-policy-require-mfa-for-admins/" class="article-date">
+  <time datetime="2018-08-05T15:00:00.000Z" itemprop="datePublished">2018-08-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/about-baseline-policy-require-mfa-for-admins/">”Baseline policy: Require MFA for admins” について</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Azure ID チームの宮林です。<br>今回は下記のとおり、6/22 より Public Preview となった “Baseline policy: Require MFA for admins” についてお知らせいたします。</p>
+<ul>
+<li>Baseline security policy for Azure AD admin accounts in public preview!<ul>
+<li><a href="https://cloudblogs.microsoft.com/enterprisemobility/2018/06/22/baseline-security-policy-for-azure-ad-admin-accounts-in-public-preview/" target="_blank" rel="noopener">https://cloudblogs.microsoft.com/enterprisemobility/2018/06/22/baseline-security-policy-for-azure-ad-admin-accounts-in-public-preview/</a></li>
+</ul>
+</li>
+<li>ベースラインの保護とは (プレビュー)<ul>
+<li><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/active-directory-conditional-access-baseline-protection" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/active-directory-conditional-access-baseline-protection</a></li>
+</ul>
+</li>
+</ul>
+<img src="/blog/azure-active-directory/about-baseline-policy-require-mfa-for-admins/Baseline-policy-Require-MFA-for-admins-pic3-1024x237.jpg">
+<p>(こちらが対象のポリシーとなります)</p>
+<blockquote>
+<p>“Baseline policy: Require MFA for admins” とは<br>“Baseline policy: Require MFA for admins” は、特権ロールを持つアカウントに対して多要素認証 (MFA : Multi Factor Authentication) を必要とさせるポリシーです。将来的にすべての Azure Active Directory テナントにおいて、既定で有効となるポリシーです。有効化に際して別途、課金が発生することはございません。<br>対象となる特権ロールは以下の 5 つのロールを持つアカウントとなり、下記 5 つのロール以外のユーザーにはこのポリシーは適用されず、影響はありません。</p>
+<ul>
+<li>全体管理者</li>
+<li>SharePoint 管理者</li>
+<li>Exchange 管理者</li>
+<li>条件付きアクセス管理者</li>
+<li>セキュリティ管理者</li>
+</ul>
+</blockquote>
+<p>現時点において “Baseline policy: Require MFA for admins(プレビュー)” の状態は、既定で [将来、ポリシーを自動的に有効化] です。</p>
+<img src="/blog/azure-active-directory/about-baseline-policy-require-mfa-for-admins/Baseline-policy-Require-MFA-for-admins-pic2.jpg">
+<p>このポリシーが有効になる時期については、ブログ執筆時において皆様にご案内できる情報がありませんが、有効になる時期について情報更新がありましたら、本ブログについても更新を予定しています。</p>
+<h2 id="自動的に有効化-する設定の無効化について"><a href="#自動的に有効化-する設定の無効化について" class="headerlink" title="[自動的に有効化] する設定の無効化について"></a>[自動的に有効化] する設定の無効化について</h2><p>このポリシーを将来、自動的に有効にしたくない場合には、該当のポリシーを今のうちから無効にしてください。以下の手順でポリシーを無効、あるいは、ポリシー自体は有効としておきつつも、特定の管理者のみを除外することが可能です。</p>
+<ol>
+<li>Azure ポータル(<a href="https://portal.azure.com/" target="_blank" rel="noopener">https://portal.azure.com/</a>) にログイン</li>
+<li>[Azure Active Directory] – [条件付きアクセス] – [Baseline policy: Require MFA for admins (プレビュー)] を選択</li>
+<li>[ポリシーを使用しない] もしくは、[ユーザーとグループの除外]より除外するユーザーを選択</li>
+</ol>
+<p>運用のご要件上、”Baseline policy: Require MFA for admins” を無効にする場合にも、改めてこのポリシーを有効にすることについては是非ご検討ください。なぜなら、昨今 ID に対する攻撃が大変に増加傾向にあり、この脅威への対策の必要性が高まっているからです。以下の参考ページでは、ID に対する代表的な攻撃手法の1つであるパスワードスプレーの説明と、その防衛策について紹介しています。</p>
+<p><a href="/blog/./password-sprey-attack/">Azure AD と AD FS のベスト プラクティス: パスワード スプレー攻撃の防御</a></p>
+<p>Azure Active Directory において、特権ロールのアカウントが悪意のあるユーザーに乗っ取られることは、大きな被害を生む可能性を孕んでいます。パスワード スプレーのような脅威から ID を守り、Azure Active Directory の認証基盤としての安全性を高めるためには、多要素認証が非常に効果的です。そのため、弊社では “Baseline policy: Require MFA for admins” の有効化を推奨しております。</p>
+<p>また、現時点から [ポリシーをすぐに使用する] に設定を変更することで、本ポリシーの機能をご利用いただくことも可能です。</p>
+<p>セキュリティと利便性は相反することが多く、どちらかのメリットを得ることで反対のデメリットが生じる場合もございますが、リスクの可能性が現実となった際の影響の大きさも考慮の上、ぜひ導入をご検討いただければと存じます。<br>ご不明な点がございましたら弊社サポートまでお気軽にお問い合わせください。</p>
+<p>上記内容が少しでも皆様の参考となりますと幸いです。<br>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/about-baseline-policy-require-mfa-for-admins/" data-id="cju29s3xy0004o0ytl033r33e" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Conditional-Access/">Conditional Access</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/expressroute-support" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/expressroute-support/" class="article-date">
+  <time datetime="2018-07-18T15:00:00.000Z" itemprop="datePublished">2018-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/expressroute-support/">Azure AD の ExpressRoute サポート</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、 Azure ID チームの三浦です。</p>
+<p><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/fundamentals/whats-new#may-2018" target="_blank" rel="noopener">2018 年 5 月の Azure AD に対する更新情報</a> に記載の  ExpressRoute 利用環境における Azure AD への認証トラフィックの変更について、その変更の内容、変更の影響を受ける場合の対応策についてご案内します。</p>
+<h2 id="変更の内容"><a href="#変更の内容" class="headerlink" title="変更の内容"></a>変更の内容</h2><p>Azure AD の認証トラフィックを処理するエンドポイント (IP アドレス) について、これまで ExpressRoute で Public ピアリング、 Microsoft ピアリングのいずれにおいてもルート情報がアドバタイズされていました。<br>言い換えますと ExpressRoute で Public ピアリングや Microsoft ピアリングを有効にして利用している環境では、 Azure AD に対する認証トラフィックが ExpressRoute を経由していました。</p>
+<p>これが 2018 年 8 月 1 日から次のように変更されます。</p>
+<p><strong>Microsoft ピアリング、かつ ExpressRoute を利用するサービスとして “その他の Office 365 Online サービス (12076:5100)” の BGP コミュニティを利用するように構成されている場合のみ ExpressRoute を経由する</strong></p>
+<p>結果として、上記のような構成以外では、 ExpressRoute を経由することなく、インターネットを利用して通信するようになります。<br>なお、 Azure AD にはリージョンが無いため、その認証トラフィックは必ずしも指定したリージョンに留まりません。そのため、これまでも ExpressRoute の構成として <a href="https://azure.microsoft.com/ja-jp/pricing/details/expressroute/" target="_blank" rel="noopener">ExpressRoute Premium アドオン</a> を利用していなかった場合には、 Azure AD への認証トラフィックは必ずしも ExpressRoute を経由しませんでした。つまり、現状でも ExpressRoute を利用している環境でも今回の変更とは関係なく、Azure AD への通信はインターネット経由となっている可能性があります。</p>
+<h2 id="何をするべきか"><a href="#何をするべきか" class="headerlink" title="何をするべきか"></a>何をするべきか</h2><p>基本的にはそれほど注意することはありません。注意しなければいけないのは以下の条件を全て満たすケースです。</p>
+<ul>
+<li>ExpressRoute を利用している</li>
+<li>ExpressRoute で Public ピアリングを利用している、または Microsoft ピアリングを利用しているが、 “その他の Office 365 Online サービス (12076:5100)” コミュニティを有効にしていない</li>
+<li>インターネットへのアクセスを特定の URL のみを通すようにプロキシなどで URL フィルタを実施している</li>
+</ul>
+<p>これまでは、上記条件を全て満たしている場合でも  ExpressRoute を経由して Azure AD への認証通信がおこなわれていたため、インターネットへのアクセス フィルタなどで、 Azure AD 認証に利用される URL を許可していなくとも問題ありませんでした。</p>
+<p>2018 年 8 月 1 日以降は、上記条件を満たしている場合、 Azure AD への認証が通らなくなる恐れがあり、その結果として Azure や Office 365 などの各種サービスが利用できなくなる可能性があります。<br>対応策としては、次の公開情報で記載されています URL のうち <strong>Office 365 ポータルと共有</strong> と <strong>Office 365 の認証と ID</strong> に含まれるものについて、利用しているネットワークからインターネットにアクセスができるように、利用しているプロキシなどの設定変更を実施します。</p>
+<p>Office 365 URL および IP アドレス範囲<br><a href="https://support.office.com/ja-jp/article/Office-365-URL-%e3%81%8a%e3%82%88%e3%81%b3-IP-%e3%82%a2%e3%83%89%e3%83%ac%e3%82%b9%e7%af%84%e5%9b%b2-8548a211-3fe7-47cb-abb1-355ea5aa88a2" target="_blank" rel="noopener">https://support.office.com/ja-jp/article/Office-365-URL-%e3%81%8a%e3%82%88%e3%81%b3-IP-%e3%82%a2%e3%83%89%e3%83%ac%e3%82%b9%e7%af%84%e5%9b%b2-8548a211-3fe7-47cb-abb1-355ea5aa88a2</a></p>
+<h2 id="補足"><a href="#補足" class="headerlink" title="補足"></a>補足</h2><p>現状は Azure AD の認証トラフィックに関連した経路は次の種類の ExpressRoute にてアドバタイズされています。</p>
+<ol>
+<li>Public ピアリング</li>
+<li>Microsoft ピアリングの Azure の全てのリージョン コミュニティ</li>
+<li>Microsoft ピアリングでの “その他の Office 365 Online サービス (12076:5100)” コミュニティ</li>
+</ol>
+<p>2018 年 8 月 1 日以降は 3 のみが ExpressRoute でアドバタイズされることになります。<br>各ピアリングについても 2018 年 4 月 1 日以降に考え方が変わり、例えば Public ピアリングについての新規構成が停止されているなどありますので、こちらについての詳細は以下の記事を参照ください。</p>
+<p>ExpressRoute の Public Peering と Microsoft Peering に関するアナウンス<br><a href="https://blogs.technet.microsoft.com/jpaztech/2018/03/02/expressroute-announcement-march-2018/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/jpaztech/2018/03/02/expressroute-announcement-march-2018/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/expressroute-support/" data-id="cju29s3yu000ro0yt8mqg22v9" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/ExpressRoute/">ExpressRoute</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory-connect/port-used-by-aadc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory-connect/port-used-by-aadc/" class="article-date">
+  <time datetime="2018-07-02T15:00:00.000Z" itemprop="datePublished">2018-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory-connect/port-used-by-aadc/">Azure AD Connect サーバー - ウィルス対策ソフト除外項目 / 使用する通信ポート</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは！Azure Identity サポートの谷です。<br>Azure AD Connect サーバーを新規構築に構築する場合や既存環境のセキュリティ面での見直しなどの背景により、<br>サードパーティ製のウィルス対策ソフトやファイアウォールでの通信制限についてのお問い合わせを多くいただいています。<br>公開情報等の情報を踏まえ、これらの情報を一目できるようにお纏めしました。<br>構築時や運用時の参考にしていただければ幸いです。</p>
+<h2 id="ウィルス対策ソフトでのスキャン除外項目"><a href="#ウィルス対策ソフトでのスキャン除外項目" class="headerlink" title="ウィルス対策ソフトでのスキャン除外項目"></a>ウィルス対策ソフトでのスキャン除外項目</h2><p>基本的には SQL Server 2012 Express LocalDB としての除外をご考慮いただければと存じますので、以下の技術情報をまずは参考としてご参照いただければと存じます。<br>Title: <a href="https://support.microsoft.com/ja-jp/help/309422/how-to-choose-antivirus-software-to-run-on-computers-that-are-running" target="_blank" rel="noopener">SQL Server を実行しているコンピューター上で実行するウイルス対策ソフトウェアを選択する方法</a><br>上記技術情報を踏まえ、AADC 製品を添付の SQL Server 2012 Express LocalDB をご利用いただいた状態で、既定でセットアップされた際の除外対象は以下となります。</p>
+<ul>
+<li>SQL Server データ ファイル格納先<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Microsoft Azure AD Sync\Data</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>※ 一時的に利用される場合があるため、[C:\Program Files\Microsoft Azure AD Sync\MaData] も併せて除外していただければと存じます。</p>
+<ul>
+<li>ウイルス スキャンから除外するプロセス<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Microsoft SQL Server\110\LocalDB\Binn\sqlservr.exe</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上記に加え、SQL Server 観点として技術情報にございます [.bak / .trn / .trc / .sql] の拡張子を持つファイルの除外も念のためご検討ください。</p>
+<h2 id="通信ポート要件"><a href="#通信ポート要件" class="headerlink" title="通信ポート要件"></a>通信ポート要件</h2><p>Azure AD Connect サーバーの通信要件は下記弊社サイトにてまとめさせていただいております。<br>Title : <a href="https://docs.microsoft.com/ja-jp/azure/active-directory/connect/active-directory-aadconnect-ports" target="_blank" rel="noopener">ハイブリッド ID で必要なポートとプロトコル</a><br>上記サイト内で Azure AD Connect の要件として必要な表は下記となります。</p>
+<p>表 1 - Azure AD Connect とオンプレミスの AD<br>表 2 - Azure AD Connect と Azure AD<br>表 6a - SSO でのパススルー認証のトラブルシューティング<br>表 6b - SSO でのパスワード ハッシュ同期<br>表 7a - Azure AD Connect Health エージェント (AD FS/Sync) と Azure AD 用のポートとプロトコル<br>表 7b - Azure AD Connect Health エージェント (AD FS/Sync) と Azure AD 用のエンドポイント  </p>
+<p>上述のサイト内にもリンクがありますが、Azure AD Connect の接続先である Azure サービス (AAD など) の接続先 IP アドレスは下記となります。</p>
+<p>Title: <a href="https://docs.microsoft.com/ja-jp/office365/enterprise/urls-and-ip-address-ranges?redirectSourcePath=%252fja-jp%252farticle%252foffice-365-url-%25e3%2581%258a%25e3%2582%2588%25e3%2581%25b3-ip-%25e3%2582%25a2%25e3%2583%2589%25e3%2583%25ac%25e3%2582%25b9%25e7%25af%2584%25e5%259b%25b2-8548a211-3fe7-47cb-abb1-355ea5aa88a2" target="_blank" rel="noopener">Office 365 の URL と IP アドレスの範囲</a></p>
+<p>この情報は将来的に変更が行われる可能性があります。<br>上記の内容を下記表にて纏めさせていただきました。</p>
+<img src="/blog/azure-active-directory-connect/port-used-by-aadc/ports.jpg"> 
+<p>1 : ポート番号 : 49152 ～ 65535<br>2 : Azure AD Connect Health Agent を使用する場合のみです。<br>Azure AD Connect Healt Agent の通信ポート以外の要件については <a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/how-to-connect-health-agent-install" target="_blank" rel="noopener">こちら</a> をご参照ください。<br>その他ご利用のサービスなどで使用するポートや懸念事項がございましたら、お気軽に弊社テクニカル サポートまでご連絡いただければ幸いです。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory-connect/port-used-by-aadc/" data-id="cju29s3zk001wo0ytar5u51a9" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/AAD-Connect/">AAD Connect</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/zero-trust-network" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/zero-trust-network/" class="article-date">
+  <time datetime="2018-06-28T15:00:00.000Z" itemprop="datePublished">2018-06-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/zero-trust-network/">Microsoft 365 を用いたゼロ トラスト ネットワークの実現</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本記事は、米国時間 2018年 6 月 14 日に公開された <a href="https://cloudblogs.microsoft.com/microsoftsecure/2018/06/14/building-zero-trust-networks-with-microsoft-365/" target="_blank" rel="noopener">Building Zero Trust networks with Microsoft 365</a> の抄訳です。</p>
+<hr>
+<p>従来の境界ベースのネットワーク制御は時代遅れとなりつつあります。 境界ベースのネットワークには、ネットワーク内のすべてのシステムが信頼できるという前提があります。 しかし、今日ますますモバイル ワーカーが増える中、パブリック クラウドサービスへの移行や BYOD (Bring Your Own Device) モデルの採用もあり、境界セキュリティの制御は意味をなさなくなってきています。従来有効とされていた制御方法を依然として使い続けているネットワークは、侵入に脆弱となります。信頼される境界として定義していた中に含まれるエンドポイントのたった一つからでも攻撃者の侵入を許すと、攻撃者はその後あっという間にネットワーク全体を支配下においていきます。</p>
+<p>ゼロ トラスト ネットワークは、境界で囲まれたネットワークは信頼できるという考え方を用いません。 代わりに、ゼロ トラスト アーキテクチャは組織内のデータとリソースへのアクセスにデバイスおよびユーザーのクレーム情報を活用します。 一般的なゼロ トラスト ネットワークモデル (図 1) は通常、以下の要素で構成されます。</p>
+<ul>
+<li>ユーザーおよびユーザー関連の情報を保持する ID プロバイダ</li>
+<li>対応するデバイス情報 (デバイスの種類、整合性など) に基づいて、会社のリソースにアクセスできるデバイスのリストを保持するデバイス ディレクトリ</li>
+<li>ユーザーまたはデバイスがセキュリティ管理者によって設定されたポリシーに準拠しているかどうかを判断するポリシー評価サービス</li>
+<li>組織リソースへのアクセスを許可または拒否する上記の方式を利用したプロキシ</li>
+</ul>
+<img src="/blog/azure-active-directory/zero-trust-network/fig1-basic-components-of-general-zero-trust-network-model-2.png">
+<p>図 1. 一般的なゼロトラスト ネットワークモデルの基本構成</p>
+<p>動的に信頼性を評価してリソースへのアクセスを制御することで、デバイスから特定のリソースへのアクセスを可能にし、一方で管理された準拠済みデバイス上の価値あるデータへのアクセスを制限することができます。標的型およびデータ漏洩を目的とした攻撃では、攻撃者は組織内の 1 つのデバイスに侵入し、盗んだ資格情報を使用してネットワーク全体を次々と横断的に移動していきます。ユーザーとデバイスに適切なポリシーが構成されたゼロ トラスト ネットワークに基づくソリューションは、盗まれたネットワーク資格情報を利用してネットワークにアクセスされるのを防ぐことができます。</p>
+<p>ゼロ トラストの考え方は、ネットワーク セキュリティの進化系です。 サイバー攻撃の現状を鑑みるに、組織は「侵入されることが前提」として考える必要があります。しかし侵入への対応だけではなく、ゼロトラスト ネットワークは企業のデータとリソースを保護しながら、従業員がいつでもどこでもどのような方法であっても生産的でいられるようモダンな職場環境を得られるようにします。</p>
+<h2 id="Azure-AD-条件付きアクセスに基づくゼロ-トラスト-ネットワーキング"><a href="#Azure-AD-条件付きアクセスに基づくゼロ-トラスト-ネットワーキング" class="headerlink" title="Azure AD 条件付きアクセスに基づくゼロ トラスト ネットワーキング"></a>Azure AD 条件付きアクセスに基づくゼロ トラスト ネットワーキング</h2><p>今日、従業員はさまざまなデバイスやアプリを使用して、どこからでも組織のリソースにアクセスできます。リソースにアクセスできるユーザーのみに焦点を当てたアクセス制御ポリシーは十分ではありません。セキュリティと生産性を高いバランスで保つために、セキュリティ管理者は、リソースへのアクセス方法も考慮する必要があります。</p>
+<p>マイクロソフトは、ゼロ トラスト ネットワーキングに関する実績と戦略を持っています。お客様がゼロ トラスト ネットワークを実現するにあたり、<a href="https://docs.microsoft.com/en-us/azure/active-directory/active-directory-conditional-access-azure-portal" target="_blank" rel="noopener">Azure Active Directory の条件付きアクセス</a> が重要な構成要素となります。 条件付きアクセスと <a href="https://docs.microsoft.com/en-us/azure/active-directory/active-directory-identityprotection" target="_blank" rel="noopener">Azure Active Directory Identity Protection</a> は、すべてのリソース要求に対して、ユーザー、デバイス、場所、およびセッションのリスクに基づき動的にアクセス制御を実施します。 これらにより、(1) Windows デバイスのセキュリティ状態に関する <a href="https://cloudblogs.microsoft.com/microsoftsecure/2018/04/19/introducing-windows-defender-system-guard-runtime-attestation/" target="_blank" rel="noopener">attested runtime signals</a> (正常性を示す実行時の情報) と (2) ユーザー セッションと ID の信頼度を組み合わせることで、可能な限り強力なセキュリティ状態が得られるようにします。</p>
+<p>条件付きアクセスには、ユーザーが企業のリソースにアクセスできる条件を制御するための一連のポリシーが用意されています。 アクセスの際に利用できる条件としては、ユーザーの役割、グループ メンバーシップ、デバイスの健全性やコンプライアンス (準拠状態)、モバイル アプリケーション、場所、サインインのリスクが挙げられます。これらの条件が、(1) アクセスを許可するか、(2) アクセスを拒否するか、または (3) 追加認証 (例えば多要素認証) の要求や利用規約の提示などのアクセス制限を行うかを決定するために使用されます。 条件付きアクセスは、Azure Active Directory と連携して動作する全てのアプリケーションで動作します。</p>
+<img src="/blog/azure-active-directory/zero-trust-network/fig2-Microsoft-high-level-approach-to-Zero-Trust-networks-using-conditional-access.png">
+<p>図 2. 条件付きアクセスを用いてゼロトラスト ネットワークを実現するためのマイクロソフトのアプローチ (概要)</p>
+<p>ゼロ トラスト モデルを実現するため、マイクロソフトは Windows Defender Advanced Threat Protection、Azure Active Directory、Windows Defender System Guard、Microsoft Intune など、Microsoft 365 におけるいくつかのコンポーネントと機能を統合して利用しています。</p>
+<h3 id="Windows-Defender-Advanced-Threat-Protection"><a href="#Windows-Defender-Advanced-Threat-Protection" class="headerlink" title="Windows Defender Advanced Threat Protection"></a>Windows Defender Advanced Threat Protection</h3><p><a href="https://www.microsoft.com/en-us/windowsforbusiness/windows-atp?ocid=cx-blog-mmpc" target="_blank" rel="noopener">Windows Defender Advanced Threat Protection</a> (ATP) は、インテリジェンス駆動型の保護機能を有し、侵入後の検出、調査、および自動修復機能を提供するエンドポイント保護プラットフォーム (EPP: endpoint protection platform) です。また、エンドポイントでの検出と対応のための (EDR: endpoint detection response) 機能を持ちます。不審な動作の検出機能、機械学習、およびセキュリティ解析を組み合わせて、デバイスの状態を継続的に監視し、必要に応じて対処を行います。 Windows Defender ATP が侵入時の影響を軽減する独自の方法の 1 つとしては、侵入されたマシンとユーザーがこれ以上の影響を与えないようクラウド リソースへから自動的に分離することが挙げられます。</p>
+<p>例えば、攻撃者は <a href="https://en.wikipedia.org/wiki/Pass_the_hash" target="_blank" rel="noopener">Pass-the-Hash (PtH)</a> と “Pass the ticket for Kerberos” という手法を使用して、侵入されたデバイスからハッシュされたユーザー資格情報を直接抽出します。攻撃者はハッシュされた資格情報を次々と別のシステムを乗っ取るために利用し、ついには特権を得るに至ります。<a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard" target="_blank" rel="noopener">Windows Defender Credential Guard</a> は、NTLM ハッシュとドメインの資格情報を保護してこれらの攻撃を防ぎますが、セキュリティ管理者としては攻撃が防がれただけではなく、そのような攻撃が発生したこと自体も把握したいと考えるでしょう。<br>Windows Defender ATP は、上記のような攻撃を管理者に報告し、侵入されたデバイスがどの程度危険かというリスク レベルを生成します。条件付きアクセスでは、Windows Defender ATP がデバイスのリスク レベルを生成し、この情報をもとにして、クライアント デバイスが企業内のリソースにアクセスするためのトークンを発行するかどうかを判断します。 Windows Defender ATP は、次のような幅広いセキュリティ機能を使用します。</p>
+<ul>
+<li><a href="https://cloudblogs.microsoft.com/microsoftsecure/2017/05/08/antivirus-evolved/" target="_blank" rel="noopener">豊富な機械学習と行動検出ライブラリ</a></li>
+<li><a href="https://cloudblogs.microsoft.com/microsoftsecure/2017/10/23/windows-defender-exploit-guard-reduce-the-attack-surface-against-next-generation-malware/" target="_blank" rel="noopener">脆弱性を利用した悪意ある行為からの保護</a></li>
+<li><a href="https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard" target="_blank" rel="noopener">資格情報の保護</a></li>
+<li><a href="https://blogs.windows.com/msedgedev/2016/09/27/application-guard-microsoft-edge/" target="_blank" rel="noopener">アプリケーションの分離</a></li>
+<li><a href="https://cloudblogs.microsoft.com/microsoftsecure/2017/05/08/antivirus-evolved/" target="_blank" rel="noopener">ウイルス対策</a></li>
+<li><a href="https://cloudblogs.microsoft.com/microsoftsecure/2017/10/23/windows-defender-exploit-guard-reduce-the-attack-surface-against-next-generation-malware/" target="_blank" rel="noopener">ネットワーク保護</a></li>
+<li><a href="https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-smartscreen/windows-defender-smartscreen-set-individual-device" target="_blank" rel="noopener">ウェブ保護</a></li>
+</ul>
+<h3 id="Windows-Defender-System-Guard-の実行時検証機能-runtime-attestation"><a href="#Windows-Defender-System-Guard-の実行時検証機能-runtime-attestation" class="headerlink" title="Windows Defender System Guard の実行時検証機能 (runtime attestation)"></a>Windows Defender System Guard の実行時検証機能 (runtime attestation)</h3><p><a href="https://cloudblogs.microsoft.com/microsoftsecure/2017/10/23/hardening-the-system-and-maintaining-integrity-with-windows-defender-system-guard/" target="_blank" rel="noopener">Windows Defender System Guard</a> は、起動時にシステムの整合性を保護し、その後も維持し続けます。「侵入されることが前提」という考え方では、セキュリティ管理者は、デバイスのセキュリティ状態をリモートから証明することが重要です。 2018 年 4 月 の Windows 10 のアップデートでは、<a href="https://cloudblogs.microsoft.com/microsoftsecure/2018/04/19/introducing-windows-defender-system-guard-runtime-attestation/" target="_blank" rel="noopener">Windows Defender System Guard の実行時検証機能 (runtime attestation)</a> もデバイスの整合性を確立するのに効果的です。本機能は、デバイスの起動時および実行時に、ハードウェアハードの検証処理を行います。 これらの結果は、Windows Defender ATP によって処理され、そのデバイスのリスク レベルがどの程度であるか判断するのに用いられます。</p>
+<p>Windows Defender System Guard の最も重要な目標は、システムの整合性が侵害されていないか検証することです。 このハードウェアに基づいた信頼性の高いフレームワークにより、ユーザーはデバイスのセキュリティ状態が改竄されていないことを (一定の範囲内で) 証明する署名付きのレポート得ることができます。 Windows Defender ATP のユーザーは、Windows Defender ATP ポータルを使用して、すべてのデバイスのセキュリティ状態を確認し、セキュリティ違反を検出したり修復したりできます。</p>
+<p>Windows Defender System Guard の実行時検証機能 (runtime attestation) は、攻撃を検出するにあたり、<a href="https://docs.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-vbs" target="_blank" rel="noopener">仮想化ベースのセキュリティ (VBS)</a> におけるハードウェアに基づくセキュリティ技術を活用しています。 バーチャル セキュア モード対応デバイスでは、Windows Defender System Guard の実行時検証機能 (runtime attestation) は分離された環境で実行されるため、カーネル レベルの攻撃にも耐性があります。</p>
+<p>Windows Defender System Guard の実行時検証機能 (runtime attestation) は、実行時にシステム セキュリティの状態を継続的に監視します。 これら検証機能が生成する結果は、例えばプロセスの保護機能がデバイス上で無効化されるなど、Windows のセキュリティが意図しない状態となっていることを捉える目的で利用されます。</p>
+<h3 id="Azure-Active-Directory"><a href="#Azure-Active-Directory" class="headerlink" title="Azure Active Directory"></a>Azure Active Directory</h3><p><a href="https://docs.microsoft.com/en-us/azure/active-directory/active-directory-whatis" target="_blank" rel="noopener">Azure Active Directory</a> は、企業がアプリケーションへのアクセスを管理し、クラウドとオンプレミスの両方でユーザー ID を保護するためのクラウド ID とアクセス管理ソリューションです。ディレクトリと ID 管理の機能に加えて、アクセス制御をつかさどる Azure AD は以下の機能を提供します。</p>
+<ul>
+<li>シングルサインオン: すべてのユーザーが単一の ID を持ち、企業をまたがるリソースにアクセスして高い生産性を確保します。 ユーザーは、クラウド サービスやオンプレミス Web アプリケーションにシングル サインオンするため、同じ職場または学校のアカウントを使用できます。多要素認証を利用すれば、より確実なユーザー検証が可能となります。</li>
+<li>アプリケーション アクセスの自動プロビジョニング: ユーザーが所属するグループのメンバーシップや地理的位置、雇用状況に基づいて、ユーザーによるアプリケーションへのアクセスを自動的にプロビジョニングまたは解除することができます。</li>
+</ul>
+<p>Azure AD は、アクセス管理をつかさどるサービスとして、組織内のリソースへのアクセス許可を付与するかどうかの判断を以下の情報を用いて行います。</p>
+<ul>
+<li>グループとユーザーのアクセス許可</li>
+<li>アクセスしようとしているアプリケーション</li>
+<li>サインインに使用したデバイス (Intune のデバイス準拠情報など)</li>
+<li>サインインに使用されているデバイスのオペレーティング システム</li>
+<li>サインインの場所または IP 範囲</li>
+<li>ログインに使用したクライアント アプリ</li>
+<li>サインイン時間</li>
+<li>サインイン リスク (そのサインインが正規のユーザーによるものでない可能性)<br>(Azure AD Identity Protection の機械学習およびヒューリスティック検出による算出)</li>
+<li>ユーザー リスク (攻撃者が対象のユーザーに成りすましている可能性)<br>(連携している社外のセキュリティ パートナーから継続的に寄せられる情報を活用し、Azure AD Identity Protection の高度な機械学習により算出)</li>
+<li>その他にも今後様々な判断要素が追加される予定です</li>
+</ul>
+<p>条件付きアクセス ポリシーは、ユーザーが Azure AD と連携したアプリケーション (例えば、SaaSアプリケーション、クラウドで実行されているカスタム アプリケーション、オンプレミス Web アプリケーションなど） にアクセスしようとすると、リアルタイムで評価および適用されます。 疑わしいアクティビティが検出された場合、Azure ADは、危険度の高いユーザーをブロックしたり、資格情報が侵害された場合にはユーザーのパスワードをリセットしたり、利用規約を強制したりするなど、復旧を支援します。</p>
+<p>企業のアプリケーションへのアクセスが許可されると、クライアント デバイスにはアクセス トークンが与えられます。このトークンを発行するかどうかの判断を Azure AD 条件付きアクセス ポリシーが中心となって行います。要求が条件を満たしている場合は、トークンがクライアントに付与されます。ポリシーによっては、制限付きのアクセス (ダウンロードが許可されていないなど) を要求したり、Microsoft Cloud App Security でのセッション監視が行われたりする場合もあります。</p>
+<h3 id="Microsoft-Intune"><a href="#Microsoft-Intune" class="headerlink" title="Microsoft Intune"></a>Microsoft Intune</h3><p>Microsoft Intune は、組織内のモバイル デバイス、PC およびアプリケーションを管理するために使用されます。 Microsoft Intune と Azure を用いることで、価値ある資産とデータを管理・可視化でき、さらには <a href="https://docs.microsoft.com/en-us/information-protection/understand-explore/what-is-information-protection" target="_blank" rel="noopener">Azure Information Protection</a> や Asset Tagging、<a href="https://www.microsoft.com/en-us/cloud-platform/cloud-app-security" target="_blank" rel="noopener">Microsoft Cloud App Security</a> などの構成要素に基づいて、自然にセキュリティ要件が底上げされるような性質も持ち合わせています。</p>
+<p>Microsoft Intune は、クライアント デバイスの導入、登録、および管理を担当します。 モバイルデバイス (Android および iOS）、ラップトップ (Windows および macOS)、従業員の BYOD デバイスなど、幅広いデバイスをサポートしています。 Intune は、Windows Defender ATP によって提供されるコンピュータのリスクレベルを他のコンプライアンス情報と組み合わせて、デバイスが準拠状態にあるかどうか (“isCompliant”) を判断します。 Azure AD は、この準拠状態を利用することで、企業リソースへのアクセスをブロックするか許可するかを判断します。 条件付きアクセスポリシーは、以下のいずれかの方法で Intune から設定可能です。</p>
+<ul>
+<li>アプリケーション ベースの設定: 承認されたアプリケーションのみが企業リソースにアクセス可能</li>
+<li>デバイス ベースの設定: 承認され準拠しているデバイスのみが企業リソースにアクセス可能</li>
+</ul>
+<p><a href="https://cloudblogs.microsoft.com/enterprisemobility/2018/04/18/enhancing-conditional-access-with-machine-risk-data-from-windows-defender-advanced-threat-protection/" target="_blank" rel="noopener">Intune におけるリスクベースの条件付きアクセスの準拠確認を構成する方法はこちら</a></p>
+<h2 id="条件付きアクセスの実行例"><a href="#条件付きアクセスの実行例" class="headerlink" title="条件付きアクセスの実行例"></a>条件付きアクセスの実行例</h2><p>条件付きアクセスの価値を理解するには、実例を見るのが一番です。(注: このセクションで使用されている名前は架空のものですが、ここでは様々なシナリオにおいて如何にして条件付きアクセスが企業のデータとリソースを保護するかご覧いただけます)。</p>
+<blockquote>
+<p>“SurelyMoney” は世界で最も権威のある金融機関の一つであり、100 万人以上のユーザーに対して日々の取引がシームレスに行えるようサービスを提供しています。同社は Microsoft 365 E5 を使用しており、セキュリティ エンタープライズ管理者は条件付きアクセスを利用しています。</p>
+<p>攻撃者は、企業の顧客情報と取引情報の詳細を盗もうとします。攻撃者はマルウェアの添付ファイルを含む一見すると無害な電子メールを従業員に送信します。ある従業員が企業のデバイス上でこの添付ファイルを無意識のうちに開くと、そのデバイスが侵害されます。この 1 人の従業員の操作によって、攻撃者はその従業員のユーザー資格情報を収集し、企業のアプリケーションにアクセスすることが可能となってしまいます。</p>
+<p>Windows Defender ATP は、デバイスの状態を継続的に監視し、侵入を検出しすると、デバイスが侵害されたとフラグを立てます。 このデバイス情報は、Azure AD と Intune に中継され、そのデバイスからアプリケーションへのアクセスが拒否されます。 侵害されたデバイスとユーザーの資格情報を用いても、企業リソースへのアクセスができないようブロックされます。 デバイスが Windows Defender ATP によって自動修復されると、修復されたデバイス上のユーザーにアクセス権が再付与されます。</p>
+</blockquote>
+<p>上記のように、条件付きアクセスと Windows Defender ATP が連携することで、マルウェアの移動を防ぐとともに、攻撃の分離や企業リソースの確実な保護が行われます。</p>
+<h3 id="Azure-ADアプリケーション-Office-365、Exchange-Online、SPO-など"><a href="#Azure-ADアプリケーション-Office-365、Exchange-Online、SPO-など" class="headerlink" title="Azure ADアプリケーション (Office 365、Exchange Online、SPO など)"></a>Azure ADアプリケーション (Office 365、Exchange Online、SPO など)</h3><blockquote>
+<p>SurelyMoney の経営陣は、Office 365 アプリケーションである Microsoft SharePoint に企業秘密を含む文書を多数格納しています。攻撃者は侵入したデバイスを用いてこれらのドキュメントを盗もうとします。 ただし、O365 アプリケーションと条件付きアクセスは統合されているため、こういった事象は未然に防がれることになります。</p>
+</blockquote>
+<p>Microsoft Word、Microsoft PowerPoint、Microsoft Excel などの Office 365 アプリケーションを用いることで、組織の従業員は連携して日々の業務を完了することができます。ただし、業務の機密性や性質、所属するグループやその他の要因によって、ユーザーは一人ひとり異なる権限を持っています。アプリケーションと条件付きアクセスは統合されているため、このような様々なユーザー権限のある環境であっても条件付きアクセスを用いることでアクセス管理が容易となります。条件付きアクセスにより、セキュリティ管理者はカスタム ポリシーを実装することができ、アプリケーションは目的のリソースに対する部分的または完全なアクセスを得ることができます。</p>
+<img src="/blog/azure-active-directory/zero-trust-network/fig-3-zero-trust-network-model-for-azure-ad-applications.png">  
+<p>図 3. Azure AD アプリケーションのゼロトラスト ネットワークモデル</p>
+<h3 id="業務アプリケーション"><a href="#業務アプリケーション" class="headerlink" title="業務アプリケーション"></a>業務アプリケーション</h3><blockquote>
+<p>SurelyMoney には、Azure AD と連携した、独自開発の取引追跡アプリケーションがあります。 このアプリケーションは、顧客が実行したすべての取引記録を保持しています。 攻撃者は、取得したユーザーの資格情報を使用してこのアプリケーションにアクセスしようとします。 しかし、条件付きアクセスがこの侵入を防ぎます。</p>
+</blockquote>
+<p>どのような組織にも、従業員の生産性や事業の成功に直接かかわるミッション クリティカルなビジネス アプリケーションがあります。これらのアプリケーションには、通常、電子商取引システム、顧客情報の管理システム、文書管理システムなどのカスタム　アプリケーションが含まれます。Azure AD は、必要なコンプライアンスおよびリスク ポリシーを満たしていない場合、これらのアプリケーションにアクセス トークンを付与しません。つまりリソースへのアクセスを許可または拒否するかどうか明確な判断を下すことができます。</p>
+<img src="/blog/azure-active-directory/zero-trust-network/fig4-zero-trust-network-model-expanded-for-line-of-business-apps.png">  
+<p>図 4. ビジネス アプリケーション向けに拡張されたゼロトラスト ネットワークモデル</p>
+<h3 id="オンプレミス-Web-アプリケーション"><a href="#オンプレミス-Web-アプリケーション" class="headerlink" title="オンプレミス Web アプリケーション"></a>オンプレミス Web アプリケーション</h3><p>今日、従業員はどこからでも、いつでも、どのデバイスからでも高い生産性を発揮することが求められています。また、タブレット、携帯電話、ノート PC に関わらず自分のデバイスを用いて仕事をしたいと考えているでしょう。 このとき社内のオンプレミス アプリケーションにアクセスできることも期待していると思われます。<a href="https://docs.microsoft.com/en-us/azure/active-directory/active-directory-application-proxy-enable" target="_blank" rel="noopener">Azure AD Application Proxy</a> は、外部公開したアプリケーションへのリモート アクセスを実現し、承認済みもしくは非承認済みのデバイスに対して条件に応じたアクセスを可能とします。</p>
+<blockquote>
+<p>SurelyMoney は、レガシーな独自のコード署名用のアプリケーションを保持しています。コード署名を行うチームメンバーのデバイスが攻撃者により侵入されたことがわかりました。オンプレミスのレガシー アプリケーションへの要求は、Azure AD Application Proxy 経由で行われます。 攻撃者は、侵害されたユーザーの資格情報を使用してこのアプリケーションにアクセスしようとしますが、条件付きアクセスによりアクセスは失敗します。</p>
+<p>条件付きアクセスがなければ、攻撃者は悪意あるアプリケーションを作成およびコード署名し、さらには Intune 経由で展開することができます。 これら悪意あるアプリは、Intune に登録されているすべてのデバイスにプッシュされ、ハッカーはこれまでにない量の機密情報を取ることができます。 このような攻撃はこれまでにも確認されており、こういった攻撃の防御に企業は非常に強い関心を寄せています。</p>
+</blockquote>
+<img src="/blog/azure-active-directory/zero-trust-network/fig5-zero-trust-network-model-for-on-premises-web-applications.png">  
+<p>図 5. オンプレミス Web アプリケーションのゼロトラスト ネットワークモデル</p>
+<h2 id="継続的なイノベーション"><a href="#継続的なイノベーション" class="headerlink" title="継続的なイノベーション"></a>継続的なイノベーション</h2><p>現在、条件付きアクセスは Web アプリケーションとシームレスに動作します。 ゼロ トラストでは、厳密な意味で、すべてのネットワーク要求がアクセス制御プロキシを通過し、デバイスとユーザーの信頼モデルに基づいてすべての評価が行われることが必要です。 これらのネットワーク要求には、従来のさまざまなレガシー通信プロトコルや、FTP、RDP、SMBなどのアクセス方式も含まれます。</p>
+<p>条件付きアクセスは、デバイスとユーザーのクレーム情報を利用して組織リソースへのアクセスを制御することで、ユーザーの生産性を確保しながら企業データを保護するための包括的で柔軟なポリシーを提供します。マイクロソフトは、ユーザーが企業ネットワークの境界を越えて生産性を発揮できる最新の職場環境が脅威にさらされないよう、技術的な革新を続けていきます。</p>
+<p><strong>Sumesh Kumar, Ashwin Baliga, Himanshu Soni, Jairo Cadena</strong><br>Enterprise &amp; Security</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/zero-trust-network/" data-id="cju29s44m005oo0ytu6gx7cnv" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD-Application-Proxy/">Azure AD Application Proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Conditional-Access/">Conditional Access</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/">Intune</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Security/">Security</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Windows-Defender-ATP/">Windows Defender ATP</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/b2b-invitation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/b2b-invitation/" class="article-date">
+  <time datetime="2018-05-22T15:00:00.000Z" itemprop="datePublished">2018-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/b2b-invitation/">Azure AD B2B におけるユーザーの新しい招待方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Azure ID チームの高田です。</p>
+<p>今回は、新しくなった Azure AD B2B (ゲスト招待機能) についてお知らせします。</p>
+<p>マイクロソフトでは、以下の資料のとおり、5 月 11 日から Azure AD B2B の新しい更新を展開しています。これにより、ゲストユーザーの招待においてこれまでと比べてユーザーから見た画面が変更されたり、管理者により行うべきことも変更されていたりします。本記事ではその概要についておまとめしました。</p>
+<p>Exciting improvements to the B2B collaboration experience<br><a href="https://cloudblogs.microsoft.com/enterprisemobility/2018/05/14/exciting-improvements-to-the-b2b-collaboration-experience/" target="_blank" rel="noopener">https://cloudblogs.microsoft.com/enterprisemobility/2018/05/14/exciting-improvements-to-the-b2b-collaboration-experience/</a></p>
+<p>Azure Active Directory B2B collaboration invitation redemption<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/b2b/redemption-experience" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/b2b/redemption-experience</a></p>
+<h2 id="新しい-Azure-AD-B2B-の変更概要"><a href="#新しい-Azure-AD-B2B-の変更概要" class="headerlink" title="新しい Azure AD B2B の変更概要"></a>新しい Azure AD B2B の変更概要</h2><p>新しい Azure AD B2B では、多くのシナリオにおいてユーザー自身が招待メールをクリックしなくてもよいように改善されています。従来は管理者がユーザーを招待すると、招待されたユーザーにメールが届き、ユーザーはメール内にある「はじめに」のリンクをクリックして招待を完了するというのが一般的な招待の流れでした。</p>
+<p>しかしながら、招待メールのクリック自体が煩雑であること、また環境によっては招待メールがセキュリティによりブロックされるなどし届かないことで、招待がスムーズに行われないという問題がありました。</p>
+<p>新しい Azure AD B2B でもメールによる招待は可能ですが、招待されたユーザーはメールにある「はじめに」のクリックせずとも、招待されたテナント上のリソース (URL) に直接アクセスしサインインすれば、招待を完了することが可能となります。招待されたテナント上のリソース (URL) に実際にアクセスしサインインすると、ユーザーには以下の画面が表示されます。</p>
+<img src="/blog/azure-active-directory/b2b-invitation/b2b-consent.png">
+<p>この画面は、ユーザーが招待されたテナントに対してそのユーザーのサインインおよびプロファイル情報の読み取りを許可して良いか確認するものです。GDPR への対応として、招待を完了するにはユーザーが必ずこの画面を確認のうえ承諾することが求められるようになりました。<br>これを踏まえ、ユーザーの招待の仕方には現在大まかに二つの方法があります。</p>
+<h3 id="1-招待されたテナントのリソースの-URL-に直接アクセスし招待を完了する"><a href="#1-招待されたテナントのリソースの-URL-に直接アクセスし招待を完了する" class="headerlink" title="1. 招待されたテナントのリソースの URL に直接アクセスし招待を完了する"></a>1. 招待されたテナントのリソースの URL に直接アクセスし招待を完了する</h3><p>ゲストユーザーの追加は SharePoint などのアプリケーションからも行うことができますが、このシナリオの場合、ゲストとしてユーザーを登録したら、招待されたユーザーは直接リソース (この例の場合には SharePoint) の URL にアクセスすることで上述の画面が表示され招待を完了できます。</p>
+<p>例えば、Tenant A 上に SharePoint サイト (例: <a href="https://tenanta.sharepoint.com/sites/testsite" target="_blank" rel="noopener">https://tenanta.sharepoint.com/sites/testsite</a>) があり、この SharePoint サイトに Tenant B のユーザーもアクセスさせたいとします。この場合は、Tenant A 上に SharePoint サイトにゲストとして Tenant B のユーザーを追加ください。そのうえで、ユーザーに対して、<a href="https://tenanta.sharepoint.com/sites/testsite" target="_blank" rel="noopener">https://tenanta.sharepoint.com/sites/testsite</a> という URL を配布します。URL を受け取った Tenant B のユーザーはこの URL に直接アクセスしサインインすることで、上記画面から招待の受け付けを完了し、サイトにアクセスできるようになります。</p>
+<p>SharePoint のようにアプリケーションから招待した場合でなくとも、この方法を取ることができます。例として、 Azure ポータルでゲストの追加を行う場合を考えます。ポータルで招待が行われた後、招待されたユーザーは、Azure Portal (<a href="https://portal.azure.com" target="_blank" rel="noopener">https://portal.azure.com</a>) にアクセスしても URL にはテナントの名前が含まれないため、このままでは自テナントのポータルにサインインしてしまいます。結果として同意画面が表示されません (招待は完了しません)。</p>
+<p>この場合は、<a href="https://portal.azure.com/tenanta.onmicrosoft.com" target="_blank" rel="noopener">https://portal.azure.com/tenanta.onmicrosoft.com</a> のように、招待されたテナント名を URL の末尾につけてアクセスします。このようにすると、Tenant A 上のリソースとしてアクセスを試みるため、招待された Tenant B のアカウントでサインインすれば上記の画面を表示させることができます。招待が完了した後は、Azure Portal 上でテナントを切り替えて各テナントのリソースを管理することができます。</p>
+<h3 id="2-従来どおり招待メールからの招待を完了する"><a href="#2-従来どおり招待メールからの招待を完了する" class="headerlink" title="2. 従来どおり招待メールからの招待を完了する"></a>2. 従来どおり招待メールからの招待を完了する</h3><p>従来通りの方法も引き続きサポートされます。Azure Portal から [+ 新しいゲストユーザー] を選択するか New-AzureADMSInvitation コマンドレット (-SendInvitationMessage オプションは $true) を使用してユーザーを招待した場合には、招待メールが送信されます。また、これ以外にも、サブスクリプションやリソースに対して、[アクセス制御 (IAM)] から権限を付与する際に、外部のメールアドレスを指定すると招待メールが送信されます。以前と同様に、送信されたメールには招待を完了させるための「はじめに」のリンクがあるのでこれをクリックします。自身のアカウントでサインインすると上記画面が表示され、承諾することで招待を完了することが可能です。</p>
+<p>また、 1 に記載しましたように招待メールが送信された場合でも、明示的に <a href="https://portal.azure.com/tenanta.onmicrosoft.com" target="_blank" rel="noopener">https://portal.azure.com/tenanta.onmicrosoft.com</a> のように招待されたテナントを指定してアクセスすることで、招待を完了させることもできます。</p>
+<p>なお、以前は例えば Tenant A 上に Tenant B 上のユーザーを一名招待しておき、そのゲスト ユーザーにゲスト招待元のディレクトリロールを割り当てたうえで、当該ゲスト ユーザーから New-AzureADMSInvitation コマンドレット (-SendInvitationMessage オプションは $false) を実行することで、招待メールを送ることなく一括してユーザーの招待を完了することが可能でした。</p>
+<p>しかしこの方法は今回の変更で利用できなくなっています。メールを送らない招待方法の場合、前述のとおりユーザーは招待されたテナント上のリソースにアクセスして、必ず同意画面で承諾ボタンを押下する必要があります。恐れ入りますが、招待メールを送信し各ユーザーで「はじめに」のリンクをクリックするか、各ユーザーに直接リソースにアクセスしてもらう (<a href="https://portal.azure.com/{tenant}.onmicrosoft.com" target="_blank" rel="noopener">https://portal.azure.com/{tenant}.onmicrosoft.com</a> にアクセスしてもらう方法でも可) ことで同意画面から招待を完了いただければと思います。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/b2b-invitation/" data-id="cju29s3ym000ho0ytvr1frgom" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD-B2B/">Azure AD B2B</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/ios-accounts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/ios-accounts/" class="article-date">
+  <time datetime="2018-05-15T15:00:00.000Z" itemprop="datePublished">2018-05-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/ios-accounts/">Office 365 へのアクセスで iOS Accounts 登録のメッセージが表示され接続できない</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。Azure ID チームの三浦です。<br>今回は iOS から Office 365 に ActiveSyncなどで接続する際に iOS Accounts 登録に関する画面が表示されて利用できない事象への対応方法をご紹介します。</p>
+<p>iOS 11 以降では  Office 365 が利用している Azure AD (以降 AAD) に iOS Accounts というアプリケーションを登録し、そのアプリケーションを介して Office 365 への接続をおこない、ユーザーのデータを利用します。</p>
+<p>テナントの既定の設定では、各ユーザーがテナント上に格納された自身のデータにアクセスすることを許可していますので、自動的に iOS Accounts というアプリケーションが登録され、そのアプリケーションに対して自身のデータへのアクセスを許可することができますが、 Office 365 の AAD で [ユーザーはアプリが自身の代わりに会社のデータにアクセスすることを許可できます] が “いいえ” の場合には、それができず、管理者による承認を必要とします。</p>
+<p>結果として、 ユーザーが ActiveSync の構成などを実施するタイミングで、次のような画面が iOS 上に表示され、 Office 365 を利用できないという問題が発生します。<br><img src="/blog/azure-active-directory/ios-accounts/ios-accounts2.jpg"></p>
+<p>####対応策:<br>AAD の設定で [ユーザーはアプリが自身の代わりに会社のデータにアクセスすることを許可できます] を “はい” にするという方法で対応できますが、これはテナント全体に対する設定であり、その他のアプリケーションにも設定が適用されます。</p>
+  <img src="/blog/azure-active-directory/ios-accounts/enterpriseApp.png">
+<p>個別に iOS Accounts だけ許可するためには AAD の全体管理者がユーザーの代わりに iOS Accounts アプリがユーザーデータを使用することを承諾するという方法をとります。<br>具体的な手順は次のとおりですが、この設定は、全体管理者が行う必要がありますので、事前に全体管理者のアカウントをご用意ください。</p>
+<ol>
+<li><p>iOS で設定を開き、 [パスワードとアカウント] から [アカウントを追加] を行います。</p>
+</li>
+<li><p>Exchange を選択し、メール欄に テナントの全体管理者のアカウントの UPN (ユーザー名) を入力します。</p>
+</li>
+<li><p>確認画面で、[サインイン] をクリックします。</p>
+</li>
+<li><p>パスワードを入力し、 [サインイン] をクリックします。</p>
+</li>
+<li><p>次のような画面が表示されますので、 “組織の代理として同意する” のチェックを付与し、[承諾] をクリックします。</p>
+
+</li>
+</ol>
+<p>この作業が完了すると Azure AD に iOS Accounts というアプリケーションが登録され、管理者による同意が完了した状態となりますので、他のユーザーのメール セットアップもできるようになります。<br>この設定は、組織のすべてのユーザーに適用されるため、以降はユーザーにメッセージは表示されません。</p>
+<p>以上です。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/ios-accounts/" data-id="cju29s3yx000wo0yt3nyk6rta" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/トラブルシューティング/">トラブルシューティング</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory-connect/basic-points-directory-synchronization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory-connect/basic-points-directory-synchronization/" class="article-date">
+  <time datetime="2018-05-08T15:00:00.000Z" itemprop="datePublished">2018-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory-connect/basic-points-directory-synchronization/">Azure AD Connect - ディレクトリ同期の基本的なポイント</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。Azure Identity チームの金森です。<br>今回は Azure AD Connect (AADC) ツールによるオブジェクト同期の考え方を改めて紹介したいと思います。</p>
+<p>AADC の技術情報は以下の技術情報をはじめとして豊富に公開されています。<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/whatis-hybrid-identity" target="_blank" rel="noopener">オンプレミスのディレクトリと Azure Active Directory の統合</a></p>
+<p>アーキテクチャや実装の仕様、構成の方法など幅広く情報が公開されていますので、ぜひお時間があれば各ページをご一読いただければ幸いです。<br>しかし、情報量が多いがゆえに逆に勘所となるポイントがつかみづらい、というご意見にこたえる形で、今回は AADC によるオブジェクト同期のポイントをかいつまんで紹介したいと思います。</p>
+<p>紹介するポイントは以下の通りです。</p>
+<ol>
+<li><strong>AADC はオンプレミス  AD 側のオブジェクトが AAD に向けて同期される</strong></li>
+<li><strong>AADC には重要な基本設定が2つある</strong></li>
+<li><strong>オンプレミス AD オブジェクトと AAD オブジェクトはどのように紐づくのか</strong></li>
+</ol>
+<p>それでは1つずつ見ていきましょう！</p>
+<h2 id="1-AADC-はオンプレミス-AD-側のオブジェクトが-AAD-に向けて同期される"><a href="#1-AADC-はオンプレミス-AD-側のオブジェクトが-AAD-に向けて同期される" class="headerlink" title="1. AADC はオンプレミス  AD 側のオブジェクトが AAD に向けて同期される"></a>1. AADC はオンプレミス  AD 側のオブジェクトが AAD に向けて同期される</h2><p>AADC ツールを構成する際、接続先のオンプレミス AD と AAD を指定しますが、この2つのディレクトリの同期の方向は [AD -&gt; AAD] に向けた同期となります。<br>オンプレミス AD の複数の Domain Controller (DC) サーバーのように双方向での同期は <span style="color: green; ">[基本的に]</span> 行われません。</p>
+<p><span style="color: green; ">[基本的に]</span> と強調しているのは、AADC 構成時のオプション選択によっては [AAD -&gt; AD 方向の書き戻し] も行われるためです。<br>下記技術情報の [オプション機能] の項目に、構成時に選択可能なオプション機能の情報を公開しています。<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/how-to-connect-install-custom" target="_blank" rel="noopener">Azure AD Connect のカスタム インストール</a></p>
+<p>以下のオプション機能を有効にした場合、AAD から AD 方向の書き戻しが行われます。<br>※ オプションによっては Azure AD Premium 等の追加ライセンスが必要なものもあります。  </p>
+<ul>
+<li><strong>Exchange ハイブリッドのデプロイ</strong> : Exchange 関連の属性値がオンプレミス AD 側のオブジェクトに書き戻されます。</li>
+<li><strong>パスワードの書き戻し (Writeback)</strong> : AAD ユーザーのパスワードを変更するとオンプレミス AD ユーザー側のパスワードも変更 (書き戻し) されます。</li>
+<li><strong>グループの書き戻し</strong> : [Office 365 グループ] という種類のグループを AAD 上に作成すると、Exchange を展開しているオンプレミス AD に書き戻されます。</li>
+<li><strong>デバイスの書き戻し</strong> : AAD に登録したデバイス オブジェクトがオンプレミス AD の [RegisteredDevice] 名の OU に書き戻されます。</li>
+</ul>
+<p>なお、グループの書き戻しは現時点ではプレビュー機能となっていますのでご注意ください。<br>プレビュー機能に関しては <a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/how-to-connect-preview" target="_blank" rel="noopener">プレビュー段階の機能の詳細</a> に情報を公開しています。</p>
+<p>このようにオプション機能によっては AAD からオンプレミス AD に向けた同期も行われますが、基本的にはオンプレミス AD 側のオブジェクト情報が AAD に片方向で同期されると捉えていただければと思います。</p>
+<h2 id="2-AADC-には重要な基本設定が2つある"><a href="#2-AADC-には重要な基本設定が2つある" class="headerlink" title="2. AADC には重要な基本設定が2つある"></a>2. AADC には重要な基本設定が2つある</h2><p>AADC でディレクトリ同期を行うにあたって、重要な基本設定が2つあります。</p>
+<h3 id="SourceAnchor"><a href="#SourceAnchor" class="headerlink" title="SourceAnchor"></a>SourceAnchor</h3><p>同期元であるオンプレミス AD ユーザーと、同期先である AAD ユーザー間の紐づけ (アンカー) を行う値の元ネタとなるオンプレミス AD オブジェクト側の属性の指定となります。<br>AADC のバージョン 1.1.486.0 以前では ObjectGUID 属性が規定値として選択されていました。<br>1.1.524.0 以降では規定値としてオンプレミス AD ユーザーの mS-DS-ConsistencyGUID 属性が選択されるようになりました。<br>この値が AAD 同期ユーザー側の ImmutableId 属性値となります。</p>
+<p>なお、ImmutableId 属性値は、直接 AAD 上に作成したユーザーの場合、既定で null になっています。<br>つまり、オンプレミス AD ユーザーの [SourceAnchor に指定した属性値] と AAD 同期ユーザーの ImmutableId 属性値が一致することで、2つのオブジェクトが同期元/先として紐づいた状態になります。</p>
+<h3 id="UPNSource-と、この-Blog-では呼称します"><a href="#UPNSource-と、この-Blog-では呼称します" class="headerlink" title="UPNSource (と、この Blog では呼称します)"></a>UPNSource (と、この Blog では呼称します)</h3><p>構成ウィザードの設定項目ではこのような呼称ではないのですが、同期先である AAD 同期ユーザーの UserPrincipalName (UPN、名前) を決定する、同期元オンプレミス AD ユーザーの属性の指定を UPNSource と、この Blog では呼称します。<br>デフォルトではオンプレミス AD ユーザーの UPN 属性の値が選択され、この値が AAD 同期ユーザー側の UPN の値になります。</p>
+<p>オンプレミス AD ユーザーの UPN と AAD ユーザーの UPN を同じ値にすることができないようなご都合があるケースもあるかと思います。<br>例えば、元々オンプレミス AD のドメイン名を contoso.local としており、これからご利用になる AAD に登録するカスタム ドメインを contoso.com にするようなケースにおいては、オンプレミス AD 側のドメイン名を contoso.com に変えることができない、というような場合です。</p>
+<p>このような場合においても、オンプレミス AD の [代替 UPN サフィックス] の機能を使用して、contoso.com を代替 UPN として登録してオンプレミス AD ユーザーの UPN を <a href="mailto:username@contoso.com" target="_blank" rel="noopener">username@contoso.com</a> にすることは可能です。<br>しかし、オンプレミス AD ユーザーの UPN 値に依存した他のシステムがあり、AD ユーザーの UPN を変えられない、という場合もあるかと思います。</p>
+<p>このようなケースでは、UPNSource の設定として UPN 属性を選択できず、例えば mail 属性などを選択される場合もありますが、このような [UPNSource として UPN 属性以外を選択する] 構成を一般的に [(UPN 以外の属性を UPN の代わりに指定する) 代替 ID 構成] と呼びます。</p>
+<p>AADC 構成ウィザードにて、SourceAnchor と UPNSource それぞれの設定値を選択する画面を以下にご紹介します。</p>
+<h4 id="SourceAnchor-1"><a href="#SourceAnchor-1" class="headerlink" title="SourceAnchor"></a>SourceAnchor</h4><img src="/blog/azure-active-directory-connect/basic-points-directory-synchronization/select-sourceanchor.jpg"> 
+<p>[Azure でソース アンカーを管理します] を選択すると、mS-DS-ConsistencyGUID 属性が利用できる場合は本属性を SourceAnchor に選択しようとします。<br>もし mS-DS-ConsistencyGUID 属性が利用できない場合は ObjectGUID 属性を SourceAnchor に選択しようとします。<br>こちらの動きに関しては以下の技術情報に説明を公開していますので、併せてご参照ください。<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-design-concepts" target="_blank" rel="noopener">Azure AD Connect: 設計概念</a></p>
+<h4 id="UPNSource"><a href="#UPNSource" class="headerlink" title="UPNSource"></a>UPNSource</h4><img src="/blog/azure-active-directory-connect/basic-points-directory-synchronization/select-upnsource.jpg"> 
+<p>なお、この2つの設定は [基本的に] AADC の最初の構成ウィザード時にのみ指定が可能ですので、構成後に後から変更したい場合は、AADC の再セットアップが必要になります。<br>またも [基本的に] と強調しているのは、前述の <a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-design-concepts" target="_blank" rel="noopener">Azure AD Connect: 設計概念</a> の [ConsistencyGuid 機能を有効にする方法 - 既存のデプロイ] にも説明がある通り、1.1.552.0 以降の AADC であれば、SourceAnchor を後から mS-DS-ConsistencyGUID 属性に変更することができるためです。</p>
+<h2 id="3-オンプレミス-AD-オブジェクトと-AAD-オブジェクトはどのように紐づくのか"><a href="#3-オンプレミス-AD-オブジェクトと-AAD-オブジェクトはどのように紐づくのか" class="headerlink" title="3. オンプレミス AD オブジェクトと AAD オブジェクトはどのように紐づくのか"></a>3. オンプレミス AD オブジェクトと AAD オブジェクトはどのように紐づくのか</h2><p>オンプレミス AD オブジェクトと AAD オブジェクトが紐づくイメージを以下にご紹介します。<br>この例では SourceAnchor として ObjectGUID 属性、UPNSource として UPN 属性が選択されている前提となります。<br><img src="/blog/azure-active-directory-connect/basic-points-directory-synchronization/sync-image-1024x566.jpg"><br>SourceAnchor に指定したオンプレミス AD ユーザーの属性値が AAD ユーザーの ImmutableID にセットされ、この2つのオブジェクトが紐づいた状態になります。<br>一度紐づいた状態では、オンプレミス AD ユーザー側の属性値が変更されると、同期処理時に紐づいた AAD ユーザー側の属性値が変更されます。</p>
+<p>なお、ObjectGUID 属性はオンプレミス AD ユーザーが作成されるタイミングで自動的にランダム値が生成/セットされます。<br>そのため、ObjectGUID 例えば [オンプレミス AD ユーザーを削除し、同じ名前で再作成] をしても、すでに作成された同期先 AAD ユーザーと改めて紐づくことはなく新規の AAD 同期ユーザーが作成されます。</p>
+<p>また、イメージ図にもある通り、AAD オブジェクト側の ImmutableId 値には [SourceAnchor の値を Base64 encode した値] がセットされます。<br>表現方式の違いであり、どちらも同じ値となりますが、ObjectGUID の値を ImmutableId の形式で表示 (もしくはその逆) する Powershell スクリプトを公開しています。<br><br>以下のギャラリーより取得していただくことが可能です。</p>
+<p><a href="https://gallery.technet.microsoft.com/office/Covert-DirSyncMS-Online-5f3563b1" target="_blank" rel="noopener">Convert DirSync/MS Online Directory Immutable ID to AD GUID (and vice versa)</a></p>
+<p>また、以下の Blog でもこの [GUID2ImmutableID.ps1] スクリプトを紹介しています。</p>
+<p><a href="https://github.com/jpazureid/blog/blob/master/azure-active-directory-connect/script-to-convert-an-ms-online-directory-immutable-id-to-an-ad-guid-and-vice-versa" target="_blank" rel="noopener">Script to convert an MS Online Directory Immutable ID to an AD GUID (and Vice Versa)</a></p>
+<p>使い方は上記の Blog にもある通り非常に簡単です。ローカル環境に GUID2ImmutableID.ps1 を配置して Powershell プロンプトより以下のようにコマンドを実施します。</p>
+<pre><code>PS E:\&gt; .\GUID2ImmutableID.ps1 512792c7-95f5-4ad9-980d-81641f3098a7
+ImmutableID
+-----------
+x5InUfWV2UqYDYFkHzCYpw==
+</code></pre><p>引数として ObjectGUID 値を指定すると、ImmutableId 形式でどのような値になるか、が出力されます。<br>ImmutableId 値を指定すると、今度は ObjectGUID 形式でどのような値になるか、が出力されます。</p>
+<pre><code>PS E:\&gt; .\GUID2ImmutableID.ps1 x5InUfWV2UqYDYFkHzCYpw==
+Guid
+----
+512792c7-95f5-4ad9-980d-81641f3098a7
+</code></pre><p>上記内容が皆様の参考となりますと幸いです。どちら様も素敵な AAD ライフをお過ごしください。</p>
+<p>ご不明な点等がありましたら、ぜひ弊社サポート サービスをご利用ください。<br>※本情報の内容（リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory-connect/basic-points-directory-synchronization/" data-id="cju29s41m0046o0ytagdpm6tn" class="article-share-link">共有</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory-connect/auto-upgrade-issue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory-connect/auto-upgrade-issue/" class="article-date">
+  <time datetime="2018-04-22T15:00:00.000Z" itemprop="datePublished">2018-04-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory-connect/auto-upgrade-issue/">自動アップグレード機能の問題</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>皆さん、こんにちは。Azure AD Connect (AADC) のサポートを担当している福島です。</p>
+<p>今回のブログは、AADC で発生する 「本来行われるべき AADC の自動アップグレードが実施されない問題」 に関する投稿です。<strong>“バージョン 1.1.524.0 以降 1.1.750.0 未満” の Azure AD Connect を利用している場合</strong>、気づかない間に本問題事象に該当している可能性がありますため一読ください。</p>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>バージョン 1.1.524.0 を一度でもインストールしたことがある環境では、本来行われるように設定している自動アップグレードが行われていない可能性があります。</p>
+<p>既定で AADC は自動アップグレードが有効になっています。しかし、バージョン 1.1.524.0 を新規でインストールした、あるいはそれ以前のバージョンを利用しており自動アップグレードを利用して 1.1.524.0 がインストールされた環境では、その後自動アップグレード設定を有効にしていても 1.1.524.0 以降のバージョンにアップグレードが行われていない可能性があります。</p>
+<p>問題となるシナリオを整理すると次の通りです。</p>
+<ul>
+<li><p>シナリオ 1. バージョン 1.1.524.0 よりも前の AADC をインストールし、自動アップグレードを有効な状態としていた</p>
+<p>  このケースでは、1.1.524.0 までは自動アップグレードによる更新が行われていました。<br>しかし、 1.1.524.0 のアップグレード機能に問題が存在していたため、1.1.524.0 以降への自動アップグレードが行われない状態となります。</p>
+</li>
+<li><p>シナリオ 2. 新規でバージョン 1.1.524.0 をインストールした</p>
+<p>  本バージョン自体に問題が存在しているため、自動アップグレードを有効にしていてもアップグレードが行われません。</p>
+</li>
+<li><p>シナリオ 3. 新規でバージョン1.1.524.0 をインストール後、手動で 1.1.750.0 未満にアップグレードした</p>
+<p>  この状態でも、引き続き自動アップグレードは行われません。</p>
+</li>
+</ul>
+<p>この問題は、バージョン 1.1.750.0 で解消しています。</p>
+<p>そのため、反対に 1.1.524.0 -1.1.749.0 を利用している間自動アップグレードが (製品の期待される動作とは反対に) 動作していなかった状態のものが、 1.1.750.0 のインストールにより自動アップグレードが正しく機能するようになることにも注意ください。</p>
+<h2 id="対象の確認方法"><a href="#対象の確認方法" class="headerlink" title="対象の確認方法"></a>対象の確認方法</h2><p>下記 2 つの条件を “両方” 満たしている AADC サーバーで、本事象は発生している可能性があります。</p>
+<ul>
+<li>条件 1. UpdateCheckEnabled レジストリに 0 が設定されている</li>
+<li>条件 2. 自動アップグレード機能の実行状態が、Enabled または Suspended である</li>
+</ul>
+<p>条件 1. のレジストリ値の設定状態は下記コマンドで確認することが可能です。(管理者権限が必要)</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg query HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ADHealthAgent\Sync /v UpdateCheckEnabled</span><br></pre></td></tr></table></figure>
+<p>出力結果例)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ADHealthAgent\Sync</span><br><span class="line">    UpdateCheckEnabled    REG_DWORD    0x0</span><br></pre></td></tr></table></figure>
+<p>条件 2. の自動アップグレード機能の実行状態 (Enabled または Suspended であるか) は、Get-ADSyncAutoUpgrade コマンドで確認することが可能です。</p>
+<p>コマンド実行例)</p>
+<img src="/blog/azure-active-directory-connect/auto-upgrade-issue/1_command.png">
+<p>なお、Suspended (保留) 状態にある場合も、自動アップグレード処理 (モジュールのダウンロードおよびインストール) は試行されます。<br>Suspended は [自動アップグレード機能は有効だが、システムにより一時的に保留された状態] を意味し、システムの判断により自動アップグレード処理が行われる可能性がある状態となります。</p>
+<p>Azure AD Connect: 自動アップグレード<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/connect/active-directory-aadconnect-feature-automatic-upgrade" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/connect/active-directory-aadconnect-feature-automatic-upgrade</a></p>
+<p>運用の要件として、AADC の自動アップグレードを無効化したい場合は、[Set-ADSyncAutoUpgrade -AutoUpgradeState Disabled] コマンドを AADC サーバー上で実行して、明示的に自動アップグレード機能を無効にする必要がありますのでご留意ください。<br>(もちろん弊社としては、様々な問題の修正や機能追加が行われているため、最新の AADC をご利用いただくことを推奨しております。)</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>バージョン 1.1.524.0 の AADC を一度でもインストールした場合、自動アップグレード機能に関連するレジストリ情報に誤った値が設定されてしまうためです。</p>
+<p>キーパス : HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ADHealthAgent\Sync<br>名前 : UpdateCheckEnabled<br>値 : 0 (無効)  &lt;&lt;&lt;&lt;&lt;★ 無効 (0x0) が誤って設定されてしまいます。  </p>
+<p>当該レジストリが設定されている状態では、自動アップグレード機能の実行状態に Enabled または Suspended が設定されていた場合でも、実際のアップグレード処理が行われなくなります。</p>
+<h2 id="解決策"><a href="#解決策" class="headerlink" title="解決策"></a>解決策</h2><p>本問題の解決策は下記 2 つです。</p>
+<h3 id="解決策-1-手動アップグレートを利用して-AADC-のバージョンを-1-1-750-0-以降にアップグレードする"><a href="#解決策-1-手動アップグレートを利用して-AADC-のバージョンを-1-1-750-0-以降にアップグレードする" class="headerlink" title="解決策 1. 手動アップグレートを利用して AADC のバージョンを 1.1.750.0 以降にアップグレードする"></a>解決策 1. 手動アップグレートを利用して AADC のバージョンを 1.1.750.0 以降にアップグレードする</h3><p>バージョン 1.1.750.0 以降の AADC では、本問題が修正されています。執筆時 (2018/4/23 時点) は、バージョン 1.1.750.0 以降の AADC がダウンロードページに掲載されていますので、こちらをダウンロードします。</p>
+<p>Microsoft Azure Active Directory Connect<br><a href="https://www.microsoft.com/en-us/download/details.aspx?id=47594" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=47594</a></p>
+<p>AADC サーバー上でダウンロードしたインストーラー (.msi) を起動し、手動でアップグレードを行います。</p>
+<h3 id="解決策-2-Powershell-スクリプトを利用してレジストリの値を修正する"><a href="#解決策-2-Powershell-スクリプトを利用してレジストリの値を修正する" class="headerlink" title="解決策 2. Powershell スクリプトを利用してレジストリの値を修正する"></a>解決策 2. Powershell スクリプトを利用してレジストリの値を修正する</h3><p>弊社が提供している下記スクリプトを利用することで、該当のレジストリ値の修正を含めて一括して問題箇所を修正することが可能です。</p>
+<p>AAD Connect - Repair AutoUpgrade Suspended state<br><a href="https://gallery.technet.microsoft.com/AAD-connect-Repair-f4a2094a" target="_blank" rel="noopener">https://gallery.technet.microsoft.com/AAD-connect-Repair-f4a2094a</a> </p>
+<p>なお、このスクリプトの処理内容は対象レジストリ値と自動アップグレードの有効 (Enabled,Suspended) /無効 (Disabled) をチェックし、前述の2つの条件を満たす構成だった場合に、レジストリを修正して AADC の Health Sync Monitor サービスを再起動しています。<br>※ディレクトリ同期を行う本体サービスの再起動を行っているわけではないので、同期処理への影響はありません。</p>
+<blockquote>
+<p>(補足)<br>AADC のバージョン情報を纏める公開資料では、“Set-ADSyncAutoUpgrade -AutoupGradeState Enabled” コマンドを案内していますが、当該手順を実行後に AADC サーバーの Health Sync Monitor サービスを再起動する必要があります。<br>そのため、これらを一括して実行できる上述スクリプトを利用することを推奨しています。</p>
+</blockquote>
+<p>Azure AD Connect: バージョンのリリース履歴<br><a href="https://docs.microsoft.com/ja-jp/azure/active-directory/connect/active-directory-aadconnect-version-history" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/azure/active-directory/connect/active-directory-aadconnect-version-history</a></p>
+<img src="/blog/azure-active-directory-connect/auto-upgrade-issue/2_caution.png">
+<h2 id="管理者への通知"><a href="#管理者への通知" class="headerlink" title="管理者への通知"></a>管理者への通知</h2><p>テナントの管理者に対しては、Azure AD Connect のアップグレード機能に問題があり、最新版へ手動アップグレードすることを促すメールが通知されます。<br>本メールを受け取った管理者は、本ブログに記載された [対象の確認方法] を参照し、現在の AADC 設定を確認いただきますようお願いいたします。</p>
+<p>※送信元 : AAD Notification [<a href="mailto:aad-notification-noreply@azureemail.microsoft.com" target="_blank" rel="noopener">aad-notification-noreply@azureemail.microsoft.com</a>]</p>
+ <img src="/blog/azure-active-directory-connect/auto-upgrade-issue/3_adminnotification1.png">
+<p> <strong>2017/6/8 追記</strong></p>
+<p> 「本件問題事象が解消していない可能性のあるテナント」 の管理者様には、下記内容で追加のメールが送付されております。</p>
+<img src="/blog/azure-active-directory-connect/auto-upgrade-issue/4_adminnotification2.png">
+<h2 id="関連情報"><a href="#関連情報" class="headerlink" title="関連情報"></a>関連情報</h2><p>自動アップグレードに関しては、当チームによる以下 Blog もぜひ併せてご参照ください。</p>
+<p>Azure AD Connect ビルド 1.1.749.0 の注意点<br><a href="https://blogs.technet.microsoft.com/jpazureid/2018/02/26/azure-ad-connect-117490/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/jpazureid/2018/02/26/azure-ad-connect-117490/</a></p>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><p>Q1. バージョン 1.1.524.0 以降 1.1.750.0 未満の AADC (1.1.749.0 など) を利用していますが、アップグレードが実施できているように見受けられます。対処が必要ですか？</p>
+<p>A1. 冒頭の [対象の確認方法] に記載された条件に合致している、且つ自動アップグレードを実施したい場合には対処が必要です。<br>もし条件に合致している場合、ご利用中の AADC では 「自動アップグレード」 ではなく、「手動アップグレード (インプレースアップグレード)」 が行われていることが考えられます。<br>自動アップグレード機能を利用するためには本ブログに記載された解決策を実施してください。</p>
+<p>Q2. バージョン 1.1.524.0 以降 1.1.750.0 未満の AADC (1.1.749.0 など) を利用していますが、問題の バージョン 1.1.524.0 を経由せずに本バージョン (1.1.749.0 など) を利用しています。対処が必要ですか？</p>
+<p>A2. いいえ。バージョン 1.1.524.0 を一度でもインストールしていない環境 (1.1.524.0 からインプレイスアップグレードをしていない環境) では、本問題について考慮する必要はありません。</p>
+<h2 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h2><p>その他、ご不明な点等がありましたら、ぜひ弊社サポート サービスをご利用ください。<br>※本情報の内容（リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory-connect/auto-upgrade-issue/" data-id="cju29s41k0044o0yticw8fn38" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/AAD-Connect/">AAD Connect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/AD-Sync/">AD Sync</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory-connect/aad-notification" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory-connect/aad-notification/" class="article-date">
+  <time datetime="2018-04-17T15:00:00.000Z" itemprop="datePublished">2018-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory-connect/aad-notification/">“AAD Notification” から送られた DirSync に関するメールについて</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Azure Identity サポートの橋本です。</p>
+<p>日本時間の 4 月 18 日に、一部の Azure AD Connect のご利用者様  (テナント管理者) 宛に、以下のような、”Action required: your sync solution is no longer supported and you need to upgrade to a newer version “ という件名のメールが AAD Notification <a href="mailto:&#x61;&#x61;&#100;&#x2d;&#x6e;&#111;&#x74;&#x69;&#102;&#105;&#99;&#x61;&#116;&#105;&#x6f;&#x6e;&#x2d;&#x6e;&#x6f;&#x72;&#101;&#112;&#108;&#121;&#x40;&#x61;&#x7a;&#117;&#x72;&#101;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x6d;&#x69;&#x63;&#114;&#x6f;&#x73;&#x6f;&#102;&#116;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x61;&#x61;&#100;&#x2d;&#x6e;&#111;&#x74;&#x69;&#102;&#105;&#99;&#x61;&#116;&#105;&#x6f;&#x6e;&#x2d;&#x6e;&#x6f;&#x72;&#101;&#112;&#108;&#121;&#x40;&#x61;&#x7a;&#117;&#x72;&#101;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x6d;&#x69;&#x63;&#114;&#x6f;&#x73;&#x6f;&#102;&#116;&#x2e;&#x63;&#111;&#x6d;</a> より配信されました。</p>
+<img src="/blog/azure-active-directory-connect/aad-notification/0418_AADC_mail-627x1024.png">
+<p>本メールは弊社システムにより誤って配信されてしまったメールであることが確認できました。</p>
+<p>DirSync や ADSync をご利用の場合はアップグレードいただく必要がございますが、Azure AD Connect をすでにご利用の場合は必要ございません。</p>
+<p>そのため、もしこのようなメールを受信されている場合は、大変申し訳ございませんが本メールは無視くださいますようお願いいたします。</p>
+<p>ご不明な点等がありましたら、恐れ入りますが弊社サポート サービスまでお問い合わせください。</p>
+<p>よろしくお願いします。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory-connect/aad-notification/" data-id="cju29s3zd001mo0ytru11wcce" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/AAD-Connect/">AAD Connect</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-azure-active-directory/20180406-rca-azure-ad" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="../../azure-active-directory/20180406-rca-azure-ad/" class="article-date">
+  <time datetime="2018-04-16T15:00:00.000Z" itemprop="datePublished">2018-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="../../azure-active-directory/20180406-rca-azure-ad/">4/6 RCA – Azure Active Directory – 認証エラー (日本語抄訳)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>いつも Azure Identity サポート チームのブログを参照いただきましてありがとうございます。</p>
+<p>今回は 4/6 に発生しました Azure Active Directory の障害についての RCA (Root Cause Analysis) レポートの日本語版の抄訳をご紹介します。</p>
+<p>原文は <a href="https://azure.microsoft.com/ja-jp/status/history/" target="_blank" rel="noopener">https://azure.microsoft.com/ja-jp/status/history/</a> を確認ください。</p>
+<p>この障害では Azure / Office 365 ポータルへのサインインができないことをはじめ、障害の対象となりましたテナントで多大な影響が生じました。</p>
+<p>改めてですが、今回の障害により多くのお客様にご迷惑をお掛けしましたことを深くお詫び申し上げます。</p>
+<h2 id="4-6-RCA-Azure-Active-Directory-認証エラー"><a href="#4-6-RCA-Azure-Active-Directory-認証エラー" class="headerlink" title="4/6 RCA - Azure Active Directory - 認証エラー"></a>4/6 RCA - Azure Active Directory - 認証エラー</h2><h4 id="影響の概要："><a href="#影響の概要：" class="headerlink" title="影響の概要："></a><span style="color: red; ">影響の概要：</span></h4><p>2018 年 4 月 6 日の 8:18 から 11:25 (UTC) (日本時間同日の 17:18 から 20:25) の間で、アジア、オセアニア、ヨーロッパの各地域を主として Azure Active Directory (AAD) を認証基盤として利用しているリソースへのアクセスに問題が生じました。</p>
+<p>これは AAD 内の 2 つのスケール ユニットで生じた誤ったデータ マッピングが原因です。</p>
+<p>結果として AAD による認証に問題が生じ、全世界のテナントのうち約 2.5 % のテナントで影響が生じました。</p>
+<p>障害が生じた期間では、 AAD を利用する Azure のサービスに影響が生じましたが、具体的には次のようなサービスで問題が発生した可能性があります。</p>
+<ol>
+<li>バックアップ： 新しいコンテナの登録およびバックアップ/リストア操作の失敗</li>
+<li>StorSimple： 新しいデバイス登録の失敗と StorSimple の管理/通信の失敗</li>
+<li>Azure Bot サービス： ボットが応答しない</li>
+<li>Visual Studio Team Services： 実行時間の長期化と複数の地域における AAD トークン取得の失敗<br>5.メディアサービス： 認証の失敗</li>
+<li>Azure Site Recovery： 新規登録と VM 複製の失敗</li>
+</ol>
+<p>Azure 以外でも Azure AD を利用する他の Microsoft サービスについても影響が生じました。</p>
+<p>影響が生じたサービスについては、それぞれ各サービスの観点から障害レポート等の形で情報を公開します。</p>
+<h4 id="根本的な原因と緩和策："><a href="#根本的な原因と緩和策：" class="headerlink" title="根本的な原因と緩和策："></a><span style="color: red; ">根本的な原因と緩和策：</span></h4><p>AAD のデータ ストレージ サービスへの最新の更新に不具合が存在しており、その更新が適用されたスケール ユニットでは、AAD が格納しているオブジェクトを誤った場所に移動してしまうという問題が生じました。 </p>
+<p>このオブジェクト移動という変更処理が、スケール ユニット内の各レプリカにも反映され、結果として Azure AD のフロントエンドのサービスが、移動されたオブジェクトにアクセスすることができず、認証やプロビジョニングの要求に失敗しました。 </p>
+<p>データ ストレージ サービスへの最新の更新適用は段階的に展開されていたため、問題の影響は 2 つのスケール ユニットのみで生じました。 </p>
+<p>影響が生じていた期間中、影響を受けたスケール ユニットでは認証とプロビジョニングの失敗が生じ、これは全体の約 2.5 % のテナントで認証失敗が生じていたことになります。</p>
+<h4 id="タイムライン："><a href="#タイムライン：" class="headerlink" title="タイムライン："></a>タイムライン：</h4><ol>
+<li>08:18 UTC (17:18 日本時間) - アジア太平洋およびオセアニアのテナントで Azure Active Directory の認証にエラーが生じました。</li>
+<li>08:38 UTC (17:38 日本時間) - 自動アラートにより、APAC およびオセアニア地域のインシデントについてエンジニアに通知されました。</li>
+<li>09:11 UTC (18:11 日本時間) - ヨーロッパのテナントで Azure Active Directory の認証にエラーが生じました。</li>
+<li>09:22 UTC (18:22 日本時間) - 自動アラートによりヨーロッパのインシデントについてエンジニアに通知がされました。その前のアラートを受け、この時点でエンジニアは既に調査を開始していました。</li>
+<li>10:45 UTC (19:45 日本時間) - 問題が特定され、エンジニアが問題を緩和 (回避) するため手順の検証を開始しました。</li>
+<li>11:21 UTC (20:21 日本時間) - 影響を受けたスケールユニットに対して回避策を実施しました。</li>
+<li>11:25 UTC (20:25 日本時間) - 回避とサービス復旧が確認されました。</li>
+</ol>
+<h4 id="次のステップ："><a href="#次のステップ：" class="headerlink" title="次のステップ："></a><span style="color: red; ">次のステップ：</span></h4><p>今回の障害がお客様に及ぼした影響を認識しております。</p>
+<p>ご迷惑をお掛けしましたことをお詫びさせていただくことに加え、将来的にこのようなインシデントが発生しないように、Microsoft Azure Platform と私たちのプロセスを改善することをお約束します。 </p>
+<p>今回の場合には、次のことが含まれます（ただしこれに限定されません）</p>
+<ol>
+<li>問題を引き起こした更新版を含むデータ ストレージ サービスを実行するレプリカを分離し、利用されないようにします [完了済み]</li>
+<li>不具合を修正した更新を開発し、導入する予定です [進行中]</li>
+<li>検出システムを改善し、誤った場所へのデータ オブジェクトの予期しない移動を検出します [進行中]</li>
+<li>データ オブジェクトが格納される場所の変更が生じた場合に、影響を排除するためにデータ ストレージ サービスによる回復性を向上させる更新を実施します [進行中]</li>
+</ol>
+<h4 id="ご意見をお寄せください："><a href="#ご意見をお寄せください：" class="headerlink" title="ご意見をお寄せください："></a><span style="color: red; ">ご意見をお寄せください：</span></h4><p>Azure をご利用のお客様に対しての情報共有を向上させるためのアンケートにご協力ください。</p>
+<p><a href="https://survey.microsoft.com/698785" target="_blank" rel="noopener">https://survey.microsoft.com/698785</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpazureid.github.io/azure-active-directory/20180406-rca-azure-ad/" data-id="cju29s3xw0003o0yt8fczeq1i" class="article-share-link">共有</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="../2/">&laquo; 戻る</a><a class="page-number" href="../../">1</a><a class="page-number" href="../2/">2</a><span class="page-number current">3</span><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><a class="page-number" href="../6/">6</a><a class="extend next" rel="next" href="../4/">次へ &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AAD-Connect/">AAD Connect</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AD-FS/">AD FS</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/AD-Sync/">AD Sync</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD/">Azure AD</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-Application-Proxy/">Azure AD Application Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-B2B/">Azure AD B2B</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-Directory-Rolls/">Azure AD Directory Rolls</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Azure-AD-License/">Azure AD License</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/CBA/">CBA</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Conditional-Access/">Conditional Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/ExpressRoute/">ExpressRoute</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hard-match/">Hard match</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Hybrid-Azure-AD-Join/">Hybrid Azure AD Join</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/MFA/">MFA</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/OAuth/">OAuth</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/PowerShell/">PowerShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/RBAC/">RBAC</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SSO/">SSO</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/SSPR/">SSPR</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Security/">Security</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Sgin-in-log/">Sgin-in log</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Smart-lockout/">Smart lockout</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Subscription/">Subscription</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Tenant-Restrictions/">Tenant Restrictions</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Token/">Token</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/UPN/">UPN</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Windows-Defender-ATP/">Windows Defender ATP</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Workplace-Join/">Workplace Join</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/graph-api/">graph api</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/signin-log/">signin log</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/サポート/">サポート</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/トラブルシューティング/">トラブルシューティング</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/情報採取/">情報採取</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/証明書/">証明書</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../tags/証明書認証/">証明書認証</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/AAD-Connect/" style="font-size: 18.33px;">AAD Connect</a> <a href="../../tags/AD-FS/" style="font-size: 16.67px;">AD FS</a> <a href="../../tags/AD-Sync/" style="font-size: 10px;">AD Sync</a> <a href="../../tags/Azure-AD/" style="font-size: 20px;">Azure AD</a> <a href="../../tags/Azure-AD-Application-Proxy/" style="font-size: 10px;">Azure AD Application Proxy</a> <a href="../../tags/Azure-AD-B2B/" style="font-size: 13.33px;">Azure AD B2B</a> <a href="../../tags/Azure-AD-Directory-Rolls/" style="font-size: 10px;">Azure AD Directory Rolls</a> <a href="../../tags/Azure-AD-License/" style="font-size: 10px;">Azure AD License</a> <a href="../../tags/CBA/" style="font-size: 10px;">CBA</a> <a href="../../tags/Conditional-Access/" style="font-size: 15px;">Conditional Access</a> <a href="../../tags/ExpressRoute/" style="font-size: 10px;">ExpressRoute</a> <a href="../../tags/Hard-match/" style="font-size: 10px;">Hard match</a> <a href="../../tags/Hybrid-Azure-AD-Join/" style="font-size: 10px;">Hybrid Azure AD Join</a> <a href="../../tags/Intune/" style="font-size: 11.67px;">Intune</a> <a href="../../tags/MFA/" style="font-size: 11.67px;">MFA</a> <a href="../../tags/OAuth/" style="font-size: 10px;">OAuth</a> <a href="../../tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="../../tags/RBAC/" style="font-size: 11.67px;">RBAC</a> <a href="../../tags/SSO/" style="font-size: 10px;">SSO</a> <a href="../../tags/SSPR/" style="font-size: 10px;">SSPR</a> <a href="../../tags/Security/" style="font-size: 11.67px;">Security</a> <a href="../../tags/Sgin-in-log/" style="font-size: 10px;">Sgin-in log</a> <a href="../../tags/Smart-lockout/" style="font-size: 10px;">Smart lockout</a> <a href="../../tags/Subscription/" style="font-size: 10px;">Subscription</a> <a href="../../tags/Tenant-Restrictions/" style="font-size: 10px;">Tenant Restrictions</a> <a href="../../tags/Token/" style="font-size: 10px;">Token</a> <a href="../../tags/UPN/" style="font-size: 10px;">UPN</a> <a href="../../tags/Windows-Defender-ATP/" style="font-size: 10px;">Windows Defender ATP</a> <a href="../../tags/Workplace-Join/" style="font-size: 10px;">Workplace Join</a> <a href="../../tags/graph-api/" style="font-size: 11.67px;">graph api</a> <a href="../../tags/signin-log/" style="font-size: 11.67px;">signin log</a> <a href="../../tags/サポート/" style="font-size: 11.67px;">サポート</a> <a href="../../tags/トラブルシューティング/" style="font-size: 11.67px;">トラブルシューティング</a> <a href="../../tags/情報採取/" style="font-size: 11.67px;">情報採取</a> <a href="../../tags/証明書/" style="font-size: 10px;">証明書</a> <a href="../../tags/証明書認証/" style="font-size: 10px;">証明書認証</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">九月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/08/">八月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/06/">六月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/02/">二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2017/10/">十月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../../azure-active-directory/nesting-group/">入れ子 (ネスト) グループへの権限付与について</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory/how-to-get-sign-in-logs/">Azure AD サインイン ログ取得方法まとめ</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory/last-signin-reports/">PowerShell にて全ユーザーの最終サインイン日時を一括で取得する方法</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory-connect/introduction-staging-server/">ステージング サーバーのすゝめ</a>
+          </li>
+        
+          <li>
+            <a href="../../azure-active-directory/create-subscription-error/">サブスクリプション作成時のエラー「アカウントが Azure サブスクリプションに関連付けられないディレクトリに属しています。別のアカウントでサインインしてください」</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Azure Identity Support Japan<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="../../fancybox/jquery.fancybox.css">
+  <script src="../../fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
