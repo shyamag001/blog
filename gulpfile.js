@@ -6,7 +6,8 @@ const blogRoot = "/blog"
 
 const sourceFolders = ["active-directory-federation-service/", "azure-active-directory/", "azure-active-directory-connect/"];
 const markdownFiles = sourceFolders.map(dir => path.join(dir, "**/*.md"));
-const imageFiles = sourceFolders.map(dir => path.join(dir, "**/*.+(jpg|jpeg|png|gif)"));
+const imageFiles = sourceFolders.map(dir => path.join(dir, "**/*.+(jpg|jpeg|png|gif|svg)"));
+imageFiles.push('favicon/*.+(png|ico|svg|webmanifest|xml)')
 const sourceFiles = sourceFolders.map(dir => path.join(dir, "**/*"));
 
 const outputPath = "source/_posts/";
